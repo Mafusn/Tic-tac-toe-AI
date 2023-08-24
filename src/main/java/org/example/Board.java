@@ -68,25 +68,29 @@ public class Board {
         displayBoard();
     }
 
-    public void startOnlyAiGame() {
-        boolean gameOver = false;
-        AiPlayer aiPlayer = new AiPlayer();
-
-        char currentPlayer = 'X';
-
-        while(!gameOver) {
+    public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO) {
+        while(true) {
             displayBoard();
 
-            aiPlayer.makeMove(this, currentPlayer);
-            if (checkWin(currentPlayer)) {
-                System.out.println("Player " + currentPlayer + " wins!");
+            aiPlayerX.makeMove(this, aiPlayerX.getSymbol());
+            if (checkWin(aiPlayerX.getSymbol())) {
+                System.out.println("Player " + aiPlayerX.getSymbol() + " wins!");
                 break;
             } else if (checkTie()) {
                 System.out.println("It's a tie!");
                 break;
             }
 
-            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            displayBoard();
+
+            aiPlayerO.makeMove(this, aiPlayerO.getSymbol());
+            if (checkWin(aiPlayerO.getSymbol())) {
+                System.out.println("Player " + aiPlayerO.getSymbol() + " wins!");
+                break;
+            } else if (checkTie()) {
+                System.out.println("It's a tie!");
+                break;
+            }
         }
         displayBoard();
     }

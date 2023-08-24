@@ -25,6 +25,7 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -62,6 +63,8 @@ public class NeuralNetworkPlayer {
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .build();
+        model = new MultiLayerNetwork(configuration);
+        model.init();
     }
 
     public void train(List<double[]> inputs, List<double[]> labels) {
@@ -84,15 +87,39 @@ public class NeuralNetworkPlayer {
 
 
     public int makeMove(Board board) {
-        // Convert the board state into a suitable input format for the neural network
-        double[] input = convertBoardToInput(board);
+        if (model == null) {
+            throw new IllegalStateException("The neural network model has not been trained yet.");
+        }
 
-        // Make a prediction using the trained neural network
-        int predictedMove = model.predict(Nd4j.create(input))[0];
+        // Flatten the game board and reshape it
+        double[] flattenedInput = flattenAndReshapeBoard(board);
+
+        // Create an INDArray from the flattened input
+        INDArray input = Nd4j.create(flattenedInput, new int[]{1, 9}); // Reshape to 1x9 matrix
+
+        // Make a prediction using the model
+        INDArray output = model.output(input);
+
+        // Process the output and make a move
+        int moveIndex = Nd4j.argMax(output, 1).getInt(0); // Find the index of the best move
 
         // Return the predicted move
-        return predictedMove;
+        return moveIndex;
     }
+
+    private double[] flattenAndReshapeBoard(Board board) {
+        double[] flattenedInput = new double[NUM_INPUTS];
+        int counter = 0;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                flattenedInput[counter] = (board.getBoard()[i][j]);
+                counter++;
+            }
+        }
+        return flattenedInput;
+    }
+
 
     private double[] convertBoardToInput(Board board) {
         double[] input = new double[NUM_INPUTS];
