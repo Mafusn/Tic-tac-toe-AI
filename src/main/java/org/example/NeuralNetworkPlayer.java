@@ -69,8 +69,15 @@ public class NeuralNetworkPlayer {
 
     public void train(List<double[]> inputs, List<double[]> labels) {
         // Convert inputs and labels to INDArray
-        INDArray inputsArray = Nd4j.create((LongShapeDescriptor) inputs);
-        INDArray labelsArray = Nd4j.create((LongShapeDescriptor) labels);
+        INDArray inputsArray = Nd4j.create(inputs.size(), NUM_INPUTS);
+        for (int i = 0; i < inputs.size(); i++) {
+            inputsArray.putRow(i, Nd4j.create(inputs.get(i)));
+        }
+
+        INDArray labelsArray = Nd4j.create(labels.size(), NUM_OUTPUTS);
+        for (int i = 0; i < labels.size(); i++) {
+            labelsArray.putRow(i, Nd4j.create(labels.get(i)));
+        }
 
         // Create DataSet from INDArrays
         DataSet dataSet = new DataSet(inputsArray, labelsArray);
@@ -86,7 +93,8 @@ public class NeuralNetworkPlayer {
     }
 
 
-    public int makeMove(Board board) {
+
+    public int makeMove(Board board, double epsilon) {
         if (model == null) {
             throw new IllegalStateException("The neural network model has not been trained yet.");
         }
@@ -100,10 +108,15 @@ public class NeuralNetworkPlayer {
         // Make a prediction using the model
         INDArray output = model.output(input);
 
-        // Process the output and make a move
-        int moveIndex = Nd4j.argMax(output, 1).getInt(0); // Find the index of the best move
+        int moveIndex;
+        if (Math.random() < epsilon) {
+            // Explore: Choose a random move
+            moveIndex = (int) (Math.random() * 9);
+        } else {
+            // Exploit: Choose the best move
+            moveIndex = Nd4j.argMax(output, 1).getInt(0);
+        }
 
-        // Return the predicted move
         return moveIndex;
     }
 
@@ -138,6 +151,85 @@ public class NeuralNetworkPlayer {
             }
         }
         return input;
+    }
+
+    public void trainSelfPlay(int numIterations) {
+        int moveIndex = (int) (Math.random() * 9);
+        for (int iteration = 0; iteration < numIterations; iteration++) {
+            double reward = 0;
+            if (iteration % 100 == 0) {
+                System.out.println("Iteration: " + iteration);
+            }
+
+            List<double[]> inputs = new ArrayList<>();
+            List<double[]> labels = new ArrayList<>();
+
+            Board board = new Board(); // Create a new board for each game
+            char currentPlayer = 'X';
+
+            while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
+                while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
+                    switch (iteration % 1000) {
+                        case 0:
+                            moveIndex = makeMove(board, 0.9);
+                            break;
+                        case 1:
+                            moveIndex = makeMove(board, 0.8);
+                            break;
+                        case 2:
+                            moveIndex = makeMove(board, 0.7);
+                            break;
+                        case 3:
+                            moveIndex = makeMove(board, 0.6);
+                            break;
+                        case 4:
+                            moveIndex = makeMove(board, 0.5);
+                            break;
+                        case 5:
+                            moveIndex = makeMove(board, 0.4);
+                            break;
+                        case 6:
+                            moveIndex = makeMove(board, 0.3);
+                            break;
+                        case 7:
+                            moveIndex = makeMove(board, 0.2);
+                            break;
+                        default:
+                            moveIndex = makeMove(board, 0.1);
+                            break;
+                    }
+                }
+
+                double[] input = flattenAndReshapeBoard(board);
+                inputs.add(input);
+
+                // Play the move and get the next player
+                int row = moveIndex / 3;
+                int col = moveIndex % 3;
+                board.getBoard()[row][col] = currentPlayer;
+                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            }
+
+            // Assign rewards based on game outcome
+            if (board.checkWin('X')) {
+                reward += 1.0;
+            } else if (board.checkWin('O')) {
+                reward += -1.0;
+            } else {
+                reward += 0.2;
+            }
+
+            // Create labels for each input
+            for (int i = 0; i < inputs.size(); i++) {
+                labels.add(new double[NUM_OUTPUTS]); // Initialize with zeros
+                labels.get(i)[moveIndex] = reward;
+            }
+
+            // Train the model with the collected data
+            if (iteration % 100 == 0) {
+                train(inputs, labels);
+            }
+        }
     }
 }
 

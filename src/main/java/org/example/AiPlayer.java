@@ -9,13 +9,16 @@ public class AiPlayer {
         this.symbol = symbol;
     }
 
+    public NeuralNetworkPlayer getNeuralNetworkPlayer() {
+        return neuralNetworkPlayer;
+    }
+
     public char getSymbol() {
         return symbol;
     }
 
     public Board makeMove(Board board, char player) {
-        int moveIndex = neuralNetworkPlayer.makeMove(board); // Get move index from neural network
-        System.out.println("Move index: " + moveIndex);
+        int moveIndex = neuralNetworkPlayer.makeMove(board, 0.2); // Get move index from neural network
         int row = moveIndex / 3;
         int col = moveIndex % 3;
 
@@ -26,7 +29,7 @@ public class AiPlayer {
                 validMove = true;
             } else {
                 // Handle invalid move by getting a new move from the neural network
-                moveIndex = neuralNetworkPlayer.makeMove(board);
+                moveIndex = neuralNetworkPlayer.makeMove(board, 0.2);
                 row = moveIndex / 3;
                 col = moveIndex % 3;
             }

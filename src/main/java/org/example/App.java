@@ -5,13 +5,13 @@ public class App
     public static void main( String[] args ) {
         AiPlayer aiPlayerX = new AiPlayer('X');
         AiPlayer aiPlayerO = new AiPlayer('O');
-        Board board = new Board();
-        board.startOnlyAiGame(aiPlayerX, aiPlayerO);
 
-        /*int numGames= 10000;
-        for (int i = 0; i < numGames; i++) {
+        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlay(10000);
+
+        int numGames= 5;
+        for (int i = 0; i <= numGames; i++) {
             Board board = new Board();
             board.startOnlyAiGame(aiPlayerX, aiPlayerO);
-        }*/
+        }
     }
 }

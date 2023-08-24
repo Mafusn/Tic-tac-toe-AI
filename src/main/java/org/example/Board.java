@@ -71,6 +71,7 @@ public class Board {
     public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO) {
         while(true) {
             displayBoard();
+            System.out.println();
 
             aiPlayerX.makeMove(this, aiPlayerX.getSymbol());
             if (checkWin(aiPlayerX.getSymbol())) {
@@ -82,6 +83,7 @@ public class Board {
             }
 
             displayBoard();
+            System.out.println();
 
             aiPlayerO.makeMove(this, aiPlayerO.getSymbol());
             if (checkWin(aiPlayerO.getSymbol())) {
@@ -95,7 +97,7 @@ public class Board {
         displayBoard();
     }
 
-    private boolean checkWin(char player) {
+    public boolean checkWin(char player) {
         for (int row = 0; row < 3; row++) {
             if (board[row][0] == player && board[row][1] == player && board[row][2] == player) {
                 return true;
@@ -113,7 +115,7 @@ public class Board {
         return false;
     }
 
-    private boolean checkTie() {
+    public boolean checkTie() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j] == '-') {
