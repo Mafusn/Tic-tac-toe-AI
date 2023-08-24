@@ -68,8 +68,31 @@ public class Board {
         displayBoard();
     }
 
+    public void startOnlyAiGame() {
+        boolean gameOver = false;
+        AiPlayer aiPlayer = new AiPlayer();
+
+        char currentPlayer = 'X';
+
+        while(!gameOver) {
+            displayBoard();
+
+            aiPlayer.makeMove(this, currentPlayer);
+            if (checkWin(currentPlayer)) {
+                System.out.println("Player " + currentPlayer + " wins!");
+                break;
+            } else if (checkTie()) {
+                System.out.println("It's a tie!");
+                break;
+            }
+
+            currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+        }
+        displayBoard();
+    }
+
     private boolean checkWin(char player) {
-        for (int row = 0; row < 2; row++) {
+        for (int row = 0; row < 3; row++) {
             if (board[row][0] == player && board[row][1] == player && board[row][2] == player) {
                 return true;
             }
@@ -87,8 +110,8 @@ public class Board {
     }
 
     private boolean checkTie() {
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 if (board[i][j] == '-') {
                     return false;
                 }
