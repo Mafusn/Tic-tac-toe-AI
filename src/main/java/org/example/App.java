@@ -6,7 +6,7 @@ public class App
         AiPlayer aiPlayerX = new AiPlayer('X');
         AiPlayer aiPlayerO = new AiPlayer('O');
 
-        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlay(400000);
+        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlay(1000000);
 
         int numGames= 5;
         for (int i = 0; i <= numGames; i++) {
