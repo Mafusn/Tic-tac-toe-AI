@@ -8,6 +8,7 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -42,7 +43,7 @@ public class NeuralNetworkPlayer {
     private MultiLayerConfiguration configuration;
     private org.deeplearning4j.nn.multilayer.MultiLayerNetwork model;
 
-    public NeuralNetworkPlayer() {
+    public NeuralNetworkPlayer(int modelNumber) throws IOException {
         // Initialize neural network configuration
         configuration = new NeuralNetConfiguration.Builder()
                 .seed(12345)
@@ -63,11 +64,16 @@ public class NeuralNetworkPlayer {
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .build();
-        model = new MultiLayerNetwork(configuration);
-        model.init();
+        File modelFile = new File("C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/model" + modelNumber + ".zip");
+        if (modelFile.exists()) {
+            model = ModelSerializer.restoreMultiLayerNetwork(modelFile);
+        } else {
+            model = new MultiLayerNetwork(configuration);
+            model.init();
+        }
     }
 
-    public void train(List<double[]> inputs, List<double[]> labels) {
+    public void train(List<double[]> inputs, List<double[]> labels, int modelNumber) throws IOException {
         // Convert inputs and labels to INDArray
         INDArray inputsArray = Nd4j.create(inputs.size(), NUM_INPUTS);
         for (int i = 0; i < inputs.size(); i++) {
@@ -90,6 +96,9 @@ public class NeuralNetworkPlayer {
         model = new MultiLayerNetwork(configuration);
         model.init();
         model.fit(dataSetIterator);
+
+        // Save the model in a file here
+        ModelSerializer.writeModel(model, "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/model" + modelNumber + ".zip", true);
     }
 
 
@@ -153,7 +162,7 @@ public class NeuralNetworkPlayer {
         return input;
     }
 
-    public void trainSelfPlay(int numIterations) {
+    public void trainSelfPlay(int numIterations, int modelNumber) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         for (int iteration = 0; iteration < numIterations; iteration++) {
             double reward = 0;
@@ -169,7 +178,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration % 100000) {
+                    switch (iteration % 10000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -230,7 +239,7 @@ public class NeuralNetworkPlayer {
 
             // Train the model with the collected data
             if (iteration % 100 == 0) {
-                train(inputs, labels);
+                train(inputs, labels, modelNumber);
             }
         }
     }

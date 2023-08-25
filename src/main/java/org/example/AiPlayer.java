@@ -1,11 +1,13 @@
 package org.example;
 
+import java.io.IOException;
+
 public class AiPlayer {
     private NeuralNetworkPlayer neuralNetworkPlayer;
     private char symbol;
 
-    public AiPlayer(char symbol) {
-        neuralNetworkPlayer = new NeuralNetworkPlayer();
+    public AiPlayer(char symbol, int modelNumber) throws IOException {
+        neuralNetworkPlayer = new NeuralNetworkPlayer(modelNumber);
         this.symbol = symbol;
     }
 
