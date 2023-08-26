@@ -3,7 +3,10 @@ package org.example;
 import java.util.Scanner;
 
 public class Board {
-    char[][] board;
+    private char[][] board;
+    private int oWins = 0;
+    private int xWins = 0;
+    private int ties = 0;
     public Board () {
         board = new char[3][3];
         for (int i = 0; i < 3; i++) {
@@ -15,6 +18,18 @@ public class Board {
 
     public char[][] getBoard() {
         return board;
+    }
+
+    public int getOWins() {
+        return oWins;
+    }
+
+    public int getXWins() {
+        return xWins;
+    }
+
+    public int getTies() {
+        return ties;
     }
 
     public void displayBoard() {
@@ -70,31 +85,57 @@ public class Board {
 
     public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO) {
         while(true) {
-            displayBoard();
+            //displayBoard();
             System.out.println();
 
             aiPlayerX.makeMove(this, aiPlayerX.getSymbol());
             if (checkWin(aiPlayerX.getSymbol())) {
                 System.out.println("Player " + aiPlayerX.getSymbol() + " wins!");
+                xWins++;
                 break;
             } else if (checkTie()) {
                 System.out.println("It's a tie!");
+                ties++;
                 break;
             }
 
-            displayBoard();
+            //displayBoard();
             System.out.println();
 
             aiPlayerO.makeMove(this, aiPlayerO.getSymbol());
             if (checkWin(aiPlayerO.getSymbol())) {
                 System.out.println("Player " + aiPlayerO.getSymbol() + " wins!");
+                oWins++;
                 break;
             } else if (checkTie()) {
                 System.out.println("It's a tie!");
+                ties++;
                 break;
             }
         }
-        displayBoard();
+        //displayBoard();
+    }
+
+    public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO) {
+        while(true) {
+            aiPlayerX.makeMove(this, aiPlayerX.getSymbol());
+            if (checkWin(aiPlayerX.getSymbol())) {
+                xWins++;
+                break;
+            } else if (checkTie()) {
+                ties++;
+                break;
+            }
+
+            aiPlayerO.makeMove(this, aiPlayerO.getSymbol());
+            if (checkWin(aiPlayerO.getSymbol())) {
+                oWins++;
+                break;
+            } else if (checkTie()) {
+                ties++;
+                break;
+            }
+        }
     }
 
     public boolean checkWin(char player) {
@@ -128,5 +169,13 @@ public class Board {
 
     public boolean isValidMove(char[][] board, int row, int col) {
         return board[row][col] == '-';
+    }
+    public void clearBoard() {
+        board = new char[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = '-';
+            }
+        }
     }
 }
