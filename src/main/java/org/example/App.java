@@ -9,7 +9,7 @@ public class App
         AiPlayer aiPlayerX = new AiPlayer('X', 0);
         AiPlayer aiPlayerO = new AiPlayer('O', 1);
 
-        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(10000, 0);
+        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(50000, 0);
 
         int numGames= 10;
         for (int i = 0; i < numGames; i++) {
