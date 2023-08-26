@@ -16,10 +16,11 @@ import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-import java.io.File;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 
 public class NeuralNetworkPlayer {
@@ -59,7 +60,7 @@ public class NeuralNetworkPlayer {
         }
     }
 
-    public void train(List<double[]> inputs, List<double[]> labels, int modelNumber) throws IOException {
+    public void train(List<double[]> inputs, List<double[]> labels, int modelNumber, int iterations) throws IOException {
         // Convert inputs and labels to INDArray
         INDArray inputsArray = Nd4j.create(inputs.size(), NUM_INPUTS);
         for (int i = 0; i < inputs.size(); i++) {
@@ -150,6 +151,20 @@ public class NeuralNetworkPlayer {
 
     public void trainSelfPlayToBeFirst(int numIterations, int modelNumber) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
+        int iterations = 0;
+
+        String fileName = "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/iterations" + modelNumber + ".txt";
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            iterations = Integer.parseInt(line);
+            bufferedReader.close();
+            System.out.println("Numbber of iterations done before this training session: " + iterations);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + fileName + "'");
+        }
+
         for (int iteration = 0; iteration < numIterations; iteration++) {
             double reward = 0;
             if (iteration % 100 == 0) {
@@ -164,7 +179,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration % 10000) {
+                    switch (iterations % 100000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -225,12 +240,37 @@ public class NeuralNetworkPlayer {
 
             // Train the model with the collected data
             if (iteration % 100 == 0) {
-                train(inputs, labels, modelNumber);
+                train(inputs, labels, modelNumber, numIterations);
             }
         }
+        FileWriter fileWriter = new FileWriter(fileName);
+        int totalIterations = iterations + numIterations;
+        fileWriter.write(Integer.toString(totalIterations));
+        fileWriter.close();
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        iterations = Integer.parseInt(line);
+        bufferedReader.close();
+        System.out.println("Model " + modelNumber + " has now done " + iterations + " iterations.");
     }
+
     public void trainSelfPlayToBeSecond(int numIterations, int modelNumber) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
+        int iterations = 0;
+
+        String fileName = "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/iterations" + modelNumber + ".txt";
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            iterations = Integer.parseInt(line);
+            bufferedReader.close();
+            System.out.println("Numbber of iterations done before this training session: " + iterations);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + fileName + "'");
+        }
+
         for (int iteration = 0; iteration < numIterations; iteration++) {
             double reward = 0;
             if (iteration % 100 == 0) {
@@ -245,7 +285,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration % 10000) {
+                    switch (iterations % 100000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -295,7 +335,7 @@ public class NeuralNetworkPlayer {
             } else if (board.checkWin('O')) {
                 reward += -1.0;
             } else {
-                reward += 0.2;
+                reward += 0.3;
             }
 
             // Create labels for each input
@@ -306,9 +346,19 @@ public class NeuralNetworkPlayer {
 
             // Train the model with the collected data
             if (iteration % 100 == 0) {
-                train(inputs, labels, modelNumber);
+                train(inputs, labels, modelNumber, numIterations);
             }
         }
+        FileWriter fileWriter = new FileWriter(fileName);
+        int totalIterations = iterations + numIterations;
+        fileWriter.write(Integer.toString(totalIterations));
+        fileWriter.close();
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        iterations = Integer.parseInt(line);
+        bufferedReader.close();
+        System.out.println("Model " + modelNumber + " has now done " + iterations + " iterations.");
     }
 }
 
