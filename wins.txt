@@ -1,0 +1,4 @@
+300000 vs 0
+X wins: 524
+O wins: 321
+Ties: 155

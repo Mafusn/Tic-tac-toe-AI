@@ -9,12 +9,12 @@ public class App
         AiPlayer aiPlayerX = new AiPlayer('X', 0);
         AiPlayer aiPlayerO = new AiPlayer('O', 1);
 
-        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(50000, 0);
+        //aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(20000, 0);
 
-        int numGames= 10;
+        int numGames= 1000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startOnlyAiGameWithoutDisplaying(aiPlayerX, aiPlayerO);
+            board.startOnlyAiGameWithoutDisplaying(aiPlayerX, aiPlayerO, 0.1);
         }
 
         System.out.println("X wins: " + board.getXWins() + "\nO wins: " + board.getOWins() + "\nTies: " + board.getTies());

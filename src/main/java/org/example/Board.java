@@ -83,12 +83,12 @@ public class Board {
         displayBoard();
     }
 
-    public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO) {
+    public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO, int epsilon) {
         while(true) {
             //displayBoard();
             System.out.println();
 
-            aiPlayerX.makeMove(this, aiPlayerX.getSymbol());
+            aiPlayerX.makeMove(this, aiPlayerX.getSymbol(), epsilon);
             if (checkWin(aiPlayerX.getSymbol())) {
                 System.out.println("Player " + aiPlayerX.getSymbol() + " wins!");
                 xWins++;
@@ -102,7 +102,7 @@ public class Board {
             //displayBoard();
             System.out.println();
 
-            aiPlayerO.makeMove(this, aiPlayerO.getSymbol());
+            aiPlayerO.makeMove(this, aiPlayerO.getSymbol(), epsilon);
             if (checkWin(aiPlayerO.getSymbol())) {
                 System.out.println("Player " + aiPlayerO.getSymbol() + " wins!");
                 oWins++;
@@ -116,9 +116,9 @@ public class Board {
         //displayBoard();
     }
 
-    public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO) {
+    public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
         while(true) {
-            aiPlayerX.makeMove(this, aiPlayerX.getSymbol());
+            aiPlayerX.makeMove(this, aiPlayerX.getSymbol(), epsilon);
             if (checkWin(aiPlayerX.getSymbol())) {
                 xWins++;
                 break;
@@ -127,7 +127,7 @@ public class Board {
                 break;
             }
 
-            aiPlayerO.makeMove(this, aiPlayerO.getSymbol());
+            aiPlayerO.makeMove(this, aiPlayerO.getSymbol(), epsilon);
             if (checkWin(aiPlayerO.getSymbol())) {
                 oWins++;
                 break;
