@@ -21,7 +21,7 @@ public class App
         aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 4, 1000);
         aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 5, 10000);
 
-        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 3, 10);
+        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 2, 10);
         aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 6, 100);
         aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 7, 1000);
         aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 8, 10000);
