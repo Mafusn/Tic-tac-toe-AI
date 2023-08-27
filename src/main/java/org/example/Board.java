@@ -88,9 +88,9 @@ public class Board {
             //displayBoard();
             System.out.println();
 
-            aiPlayerX.makeMove(this, aiPlayerX.getSymbol(), epsilon);
-            if (checkWin(aiPlayerX.getSymbol())) {
-                System.out.println("Player " + aiPlayerX.getSymbol() + " wins!");
+            aiPlayerX.makeMove(this, 'X', epsilon);
+            if (checkWin('X')) {
+                System.out.println("Player " + 'X' + " wins!");
                 xWins++;
                 break;
             } else if (checkTie()) {
@@ -102,9 +102,9 @@ public class Board {
             //displayBoard();
             System.out.println();
 
-            aiPlayerO.makeMove(this, aiPlayerO.getSymbol(), epsilon);
-            if (checkWin(aiPlayerO.getSymbol())) {
-                System.out.println("Player " + aiPlayerO.getSymbol() + " wins!");
+            aiPlayerO.makeMove(this, 'O', epsilon);
+            if (checkWin('O')) {
+                System.out.println("Player " + 'O' + " wins!");
                 oWins++;
                 break;
             } else if (checkTie()) {
@@ -118,8 +118,8 @@ public class Board {
 
     public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
         while(true) {
-            aiPlayerX.makeMove(this, aiPlayerX.getSymbol(), epsilon);
-            if (checkWin(aiPlayerX.getSymbol())) {
+            aiPlayerX.makeMove(this, 'X', epsilon);
+            if (checkWin('X')) {
                 xWins++;
                 break;
             } else if (checkTie()) {
@@ -127,8 +127,8 @@ public class Board {
                 break;
             }
 
-            aiPlayerO.makeMove(this, aiPlayerO.getSymbol(), epsilon);
-            if (checkWin(aiPlayerO.getSymbol())) {
+            aiPlayerO.makeMove(this, 'O', epsilon);
+            if (checkWin('O')) {
                 oWins++;
                 break;
             } else if (checkTie()) {

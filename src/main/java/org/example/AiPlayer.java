@@ -6,9 +6,8 @@ public class AiPlayer {
     private NeuralNetworkPlayer neuralNetworkPlayer;
     private char symbol;
 
-    public AiPlayer(char symbol, int modelNumber) throws IOException {
+    public AiPlayer(int modelNumber) throws IOException {
         neuralNetworkPlayer = new NeuralNetworkPlayer(modelNumber);
-        this.symbol = symbol;
     }
 
     public NeuralNetworkPlayer getNeuralNetworkPlayer() {
