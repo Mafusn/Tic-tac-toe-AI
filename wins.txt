@@ -7,3 +7,8 @@ Ties: 155
 X wins: 576
 O wins: 321
 Ties: 103
+
+400000 vs 10000
+X wins: 598
+O wins: 282
+Ties: 120
