@@ -149,7 +149,7 @@ public class NeuralNetworkPlayer {
         return input;
     }
 
-    public void trainSelfPlayToBeFirst(int numIterations, int modelNumber) throws IOException {
+    public void trainSelfPlayToBeFirst(int numIterations, int modelNumber, int traininginterval) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         int iterations = 0;
 
@@ -239,7 +239,7 @@ public class NeuralNetworkPlayer {
             }
 
             // Train the model with the collected data
-            if (iteration % 100 == 0) {
+            if (iteration % traininginterval == 0) {
                 train(inputs, labels, modelNumber, numIterations);
             }
         }
@@ -255,7 +255,7 @@ public class NeuralNetworkPlayer {
         System.out.println("Model " + modelNumber + " has now done " + iterations + " iterations.");
     }
 
-    public void trainSelfPlayToBeSecond(int numIterations, int modelNumber) throws IOException {
+    public void trainSelfPlayToBeSecond(int numIterations, int modelNumber, int traininginterval) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         int iterations = 0;
 
@@ -345,7 +345,7 @@ public class NeuralNetworkPlayer {
             }
 
             // Train the model with the collected data
-            if (iteration % 100 == 0) {
+            if (iteration % traininginterval == 0) {
                 train(inputs, labels, modelNumber, numIterations);
             }
         }
