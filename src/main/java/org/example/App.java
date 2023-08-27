@@ -9,9 +9,9 @@ public class App
         AiPlayer aiPlayerX = new AiPlayer('X', 0);
         AiPlayer aiPlayerO = new AiPlayer('O', 1);
 
-        //aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(10000, 1);
+        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(50000, 0);
 
-        int numGames= 1000;
+        int numGames= 100;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
             board.startOnlyAiGameWithoutDisplaying(aiPlayerX, aiPlayerO, 0.1);
