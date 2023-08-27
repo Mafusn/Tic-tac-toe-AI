@@ -12,9 +12,9 @@ public class App
         AiPlayer aiPlayer3 = new AiPlayer('X', 3); // Overpowered
 
 
-        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(250000, 3);
+        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(150000, 3);
 
-        int numGames= 100;
+        int numGames= 1000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
             board.startOnlyAiGameWithoutDisplaying(aiPlayer3, aiPlayer0, 0.1);
