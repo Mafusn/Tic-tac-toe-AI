@@ -27,7 +27,7 @@ public class App
         aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 8, 10000);
 
 
-        int numGames= 1000;
+        /*int numGames= 1000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
             board.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer0, 0.1);
@@ -41,6 +41,6 @@ public class App
             board1.startOnlyAiGameWithoutDisplaying(aiPlayer0, aiPlayer2, 0.1);
         }
 
-        System.out.println("X wins: " + board1.getXWins() + "\nO wins: " + board1.getOWins() + "\nTies: " + board1.getTies());
+        System.out.println("X wins: " + board1.getXWins() + "\nO wins: " + board1.getOWins() + "\nTies: " + board1.getTies());*/
     }
 }
