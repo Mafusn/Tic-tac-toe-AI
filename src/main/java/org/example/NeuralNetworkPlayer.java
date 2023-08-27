@@ -229,7 +229,7 @@ public class NeuralNetworkPlayer {
             } else if (board.checkWin('O')) {
                 reward += -1.0;
             } else {
-                reward += 0.2;
+                reward -= 0.2;
             }
 
             // Create labels for each input
@@ -335,7 +335,7 @@ public class NeuralNetworkPlayer {
             } else if (board.checkWin('O')) {
                 reward += -1.0;
             } else {
-                reward += 0.3;
+                reward -= 0.2;
             }
 
             // Create labels for each input
