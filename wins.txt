@@ -2,3 +2,8 @@
 X wins: 524
 O wins: 321
 Ties: 155
+
+300000 vs 10000
+X wins: 576
+O wins: 321
+Ties: 103
