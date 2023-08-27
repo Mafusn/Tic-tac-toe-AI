@@ -6,10 +6,10 @@ public class App
 {
     public static void main( String[] args ) throws IOException {
         Board board = new Board();
-        AiPlayer aiPlayerX = new AiPlayer('X', 2);
+        AiPlayer aiPlayerX = new AiPlayer('X', 3);
         AiPlayer aiPlayerO = new AiPlayer('O', 1);
 
-        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 2);
+        aiPlayerX.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 3);
 
         int numGames= 100;
         for (int i = 0; i < numGames; i++) {
