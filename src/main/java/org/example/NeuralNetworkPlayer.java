@@ -179,7 +179,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iterations % 100000) {
+                    switch (iteration / 100000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -285,7 +285,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iterations % 100000) {
+                    switch (iteration / 100000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;

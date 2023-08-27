@@ -138,6 +138,102 @@ public class Board {
         }
     }
 
+    public void startPlayAgainstAiPlayerStart(AiPlayer aiPlayer, int epsilon) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to Tic Tac Toe!");
+        System.out.println("Here's the current board:");
+
+        while(true) {
+            displayBoard();
+            System.out.println();
+
+            System.out.println("Your turn, enter column (1-3): ");
+            int col = scanner.nextInt() - 1;
+
+            System.out.println("Your turn, enter row (1-3): ");
+            int row = scanner.nextInt() - 1;
+
+            if (isValidMove(board, row, col)) {
+                board[row][col] = 'X';
+
+                // Checks for win or tie before AI makes its move
+                if(checkWin('X')) {
+                    System.out.println("You won!");
+                    break;
+                } else if (checkTie()) {
+                    System.out.println("It's a tie!");
+                    break;
+                }
+            } else {
+                System.out.println("Invalid move. Try again.");
+            }
+
+            displayBoard();
+            System.out.println();
+
+            aiPlayer.makeMove(this, 'O', epsilon);
+            if (checkWin('O')) {
+                System.out.println("You lost, better luck next time!");
+                break;
+            } else if (checkTie()) {
+                System.out.println("It's a tie!");
+                break;
+            }
+        }
+
+        scanner.close();
+        displayBoard();
+    }
+
+    public void startPlayAgainstAiAiStart(AiPlayer aiPlayer, int epsilon) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to Tic Tac Toe!");
+        System.out.println("Here's the current board:");
+
+        while(true) {
+            displayBoard();
+            System.out.println();
+
+            aiPlayer.makeMove(this, 'O', epsilon);
+            if (checkWin('O')) {
+                System.out.println("You lost, better luck next time!");
+                break;
+            } else if (checkTie()) {
+                System.out.println("It's a tie!");
+                break;
+            }
+
+            displayBoard();
+            System.out.println();
+
+            System.out.println("Your turn, enter column (1-3): ");
+            int col = scanner.nextInt() - 1;
+
+            System.out.println("Your turn, enter row (1-3): ");
+            int row = scanner.nextInt() - 1;
+
+            if (isValidMove(board, row, col)) {
+                board[row][col] = 'X';
+
+                // Checks for win or tie before AI makes its move
+                if(checkWin('X')) {
+                    System.out.println("You won!");
+                    break;
+                } else if (checkTie()) {
+                    System.out.println("It's a tie!");
+                    break;
+                }
+            } else {
+                System.out.println("Invalid move. Try again.");
+            }
+        }
+
+        scanner.close();
+        displayBoard();
+    }
+
     public boolean checkWin(char player) {
         for (int row = 0; row < 3; row++) {
             if (board[row][0] == player && board[row][1] == player && board[row][2] == player) {
