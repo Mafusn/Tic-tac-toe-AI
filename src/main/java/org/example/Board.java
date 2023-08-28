@@ -138,7 +138,7 @@ public class Board {
         }
     }
 
-    public void startPlayAgainstAiPlayerStart(AiPlayer aiPlayer, int epsilon) {
+    public void startPlayAgainstAiPlayerStart(AiPlayer aiPlayer, double epsilon) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Tic Tac Toe!");
@@ -186,7 +186,7 @@ public class Board {
         displayBoard();
     }
 
-    public void startPlayAgainstAiAiStart(AiPlayer aiPlayer, int epsilon) {
+    public void startPlayAgainstAiAiStart(AiPlayer aiPlayer, double epsilon) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Tic Tac Toe!");
@@ -273,5 +273,12 @@ public class Board {
                 board[i][j] = '-';
             }
         }
+    }
+
+    public void showWins(int numGames) {
+        double xWins = (double) getXWins() / numGames * 100;
+        double oWins = (double) getOWins() / numGames * 100;
+        double ties = (double) getTies() / numGames * 100;
+        System.out.println("X wins: " + xWins + "%\nO wins: " + oWins + "%\nTies: " + ties + "%");
     }
 }

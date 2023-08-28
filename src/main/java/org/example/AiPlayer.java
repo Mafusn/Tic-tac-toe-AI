@@ -4,7 +4,6 @@ import java.io.IOException;
 
 public class AiPlayer {
     private NeuralNetworkPlayer neuralNetworkPlayer;
-    private char symbol;
 
     public AiPlayer(int modelNumber) throws IOException {
         neuralNetworkPlayer = new NeuralNetworkPlayer(modelNumber);
@@ -12,10 +11,6 @@ public class AiPlayer {
 
     public NeuralNetworkPlayer getNeuralNetworkPlayer() {
         return neuralNetworkPlayer;
-    }
-
-    public char getSymbol() {
-        return symbol;
     }
 
     public Board makeMove(Board board, char player, double epsilon) {

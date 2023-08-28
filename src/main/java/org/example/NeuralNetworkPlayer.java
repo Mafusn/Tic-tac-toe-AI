@@ -16,6 +16,7 @@ import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
+import oshi.json.util.JsonUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -105,21 +106,41 @@ public class NeuralNetworkPlayer {
         // Make a prediction using the model
         INDArray output = model.output(input);
 
-        int moveIndex;
+        int moveIndex = 0;
+        //System.out.println("BestMoveNotAvailable: " + bestMoveNotAvailable);
         if (Math.random() < epsilon) {
             // Explore: Choose a random move
-            moveIndex = (int) (Math.random() * 9);
+            do {
+                moveIndex = (int) (Math.random() * 9);
+            } while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3));
         } else {
             // Exploit: Choose the best move
-            moveIndex = 0;
-            for (int i = 1; i < output.toDoubleVector().length; i++) {
-                if (output.toDoubleVector()[i] > output.toDoubleVector()[moveIndex]) { // gets the index of the highest probability
-                    moveIndex = i;
+            INDArray sortedOutput = sortOutputForMakeMove(output);
+            double[] sortedOutputArray = sortedOutput.toDoubleVector();
+
+            // Find the best move that is valid starting from the highest probability
+            for (int i = 8; 0 < i; i--) {
+                for (int j = 8; 0 < j; j--) {
+                    if (output.getDouble(j) == sortedOutputArray[i] && board.isValidMove(board.getBoard(), j / 3, j % 3)) {
+                        moveIndex = j;
+                        break;
+                    }
+                }
+                if (output.getDouble(moveIndex) == sortedOutputArray[i] && board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
+                    break;
                 }
             }
         }
 
         return moveIndex;
+    }
+
+    private INDArray sortOutputForMakeMove(INDArray output) {
+        double[] outputArray = output.toDoubleVector();
+        double[] sortedOutputArray = outputArray.clone();
+        Arrays.sort(sortedOutputArray);
+        INDArray sortedOutput = Nd4j.create(sortedOutputArray, new int[]{1, 9});
+        return sortedOutput;
     }
 
     private double[] convertBoardToInput(Board board) {
@@ -144,6 +165,7 @@ public class NeuralNetworkPlayer {
     public void trainSelfPlayToBeFirst(int numIterations, int modelNumber, int traininginterval) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         int iterations = 0;
+        int moves = 0;
 
         String fileName = "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/iterations" + modelNumber + ".txt";
         try {
@@ -159,6 +181,7 @@ public class NeuralNetworkPlayer {
 
         for (int iteration = 0; iteration < numIterations; iteration++) {
             double reward = 0;
+            moves = 0;
             if (iteration % 100 == 0) {
                 System.out.println("Iteration: " + iteration);
             }
@@ -171,7 +194,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration / 10000) {
+                    switch (iteration / 90000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -216,6 +239,7 @@ public class NeuralNetworkPlayer {
                 int col = moveIndex % 3;
                 board.getBoard()[row][col] = currentPlayer;
                 currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                moves++;
             }
 
             // Assign rewards based on game outcome
@@ -226,6 +250,8 @@ public class NeuralNetworkPlayer {
             } else {
                 reward -= 0.2;
             }
+
+            reward -= moves / 100.0 * 4;
 
             // Create labels for each input
             for (int i = 0; i < inputs.size(); i++) {
@@ -253,6 +279,7 @@ public class NeuralNetworkPlayer {
     public void trainSelfPlayToBeSecond(int numIterations, int modelNumber, int traininginterval) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         int iterations = 0;
+        int moves = 0;
 
         String fileName = "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/iterations" + modelNumber + ".txt";
         try {
@@ -268,6 +295,7 @@ public class NeuralNetworkPlayer {
 
         for (int iteration = 0; iteration < numIterations; iteration++) {
             double reward = 0;
+            moves = 0;
             if (iteration % 100 == 0) {
                 System.out.println("Iteration: " + iteration);
             }
@@ -280,7 +308,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration / 10000) {
+                    switch (iteration / 90000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -325,8 +353,11 @@ public class NeuralNetworkPlayer {
                 int col = moveIndex % 3;
                 board.getBoard()[row][col] = currentPlayer;
                 currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+
+                moves++;
             }
 
+            System.out.println("Moves: " + moves);
             // Assign rewards based on game outcome
             if (board.checkWin('X')) {
                 reward += 1.0;
