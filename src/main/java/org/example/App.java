@@ -22,11 +22,11 @@ public class App
         //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100, 0, 100);
         //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100, 0, 1000);
 
-        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(150000, 1, 1000);
+        /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(150000, 1, 1000);
         aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(250000, 2, 1000);
 
         aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(250000, 1, 1000);
-        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(150000, 2, 1000);
+        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(150000, 2, 1000);*/
 
 
 

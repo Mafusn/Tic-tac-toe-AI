@@ -30,11 +30,8 @@ public class NeuralNetworkPlayer {
     private static final int NUM_OUTPUTS = 9;
     private MultiLayerConfiguration configuration;
     private org.deeplearning4j.nn.multilayer.MultiLayerNetwork model;
-    private ArrayList<Integer> availableMoves = new ArrayList<>();
 
     public NeuralNetworkPlayer(int modelNumber) throws IOException {
-        // Initialize available moves
-        resetAvailableMoves();
         // Initialize neural network configuration
         configuration = new NeuralNetConfiguration.Builder()
                 .seed(12345)
@@ -111,9 +108,7 @@ public class NeuralNetworkPlayer {
         int moveIndex;
         if (Math.random() < epsilon) {
             // Explore: Choose a random move
-            int randomIndex = (int) (Math.random() * availableMoves.size());
-            moveIndex = availableMoves.get(randomIndex);
-            availableMoves.remove(randomIndex);
+            moveIndex = (int) (Math.random() * 9);
         } else {
             // Exploit: Choose the best move
             moveIndex = 0;
@@ -172,7 +167,6 @@ public class NeuralNetworkPlayer {
             List<double[]> labels = new ArrayList<>();
 
             Board board = new Board(); // Create a new board for each game
-            resetAvailableMoves();
             char currentPlayer = 'X';
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
@@ -282,7 +276,6 @@ public class NeuralNetworkPlayer {
             List<double[]> labels = new ArrayList<>();
 
             Board board = new Board(); // Create a new board for each game
-            resetAvailableMoves();
             char currentPlayer = 'O';
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
@@ -364,13 +357,6 @@ public class NeuralNetworkPlayer {
         iterations = Integer.parseInt(line);
         bufferedReader.close();
         System.out.println("Model " + modelNumber + " has now done " + iterations + " iterations.");
-    }
-
-    private void resetAvailableMoves() {
-        this.availableMoves.clear();
-        for (int i = 0; i < 9; i++) {
-            this.availableMoves.add(i);
-        }
     }
 }
 
