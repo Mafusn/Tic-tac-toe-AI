@@ -22,15 +22,9 @@ public class App
         //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100, 0, 100);
         //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100, 0, 1000);
 
-        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 1, 10);
-        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 2, 100);
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 3, 1000);
-        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 4, 10000);
 
-        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 5, 10);
-        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 6, 100);
         aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 7, 1000);
-        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 8, 10000);
 
 
         int numGames= 1000;
