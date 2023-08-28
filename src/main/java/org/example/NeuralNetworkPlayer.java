@@ -19,6 +19,7 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.IOException;
 
@@ -40,14 +41,14 @@ public class NeuralNetworkPlayer {
                 .layer(0, new DenseLayer.Builder()
                         .nIn(NUM_INPUTS)
                         .nOut(NUM_HIDDEN_NODES)
-                        .activation(Activation.RELU)
+                        .activation(Activation.RELU) // .activation(Activation.LEAKYRELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .layer(1, new OutputLayer.Builder()
                         .nIn(NUM_HIDDEN_NODES)
                         .nOut(NUM_OUTPUTS)
                         .activation(Activation.SOFTMAX)
-                        .lossFunction(LossFunctions.LossFunction.MEAN_SQUARED_LOGARITHMIC_ERROR)
+                        .lossFunction(LossFunctions.LossFunction.MCXENT)
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .build();
@@ -96,13 +97,16 @@ public class NeuralNetworkPlayer {
         }
 
         // Flatten the game board and reshape it
-        double[] flattenedInput = flattenAndReshapeBoard(board);
+        double[] flattenedInput = convertBoardToInput(board);
 
         // Create an INDArray from the flattened input
         INDArray input = Nd4j.create(flattenedInput, new int[]{1, 9}); // Reshape to 1x9 matrix
 
         // Make a prediction using the model
         INDArray output = model.output(input);
+        if (Math.random() < 0.0001) {
+            System.out.println("Output: " + Arrays.toString(output.toDoubleVector()));
+        }
 
         int moveIndex;
         if (Math.random() < epsilon) {
@@ -110,25 +114,16 @@ public class NeuralNetworkPlayer {
             moveIndex = (int) (Math.random() * 9);
         } else {
             // Exploit: Choose the best move
-            moveIndex = Nd4j.argMax(output, 1).getInt(0);
+            moveIndex = 0;
+            for (int i = 1; i < output.toDoubleVector().length; i++) {
+                if (output.toDoubleVector()[i] > output.toDoubleVector()[moveIndex]) { // gets the index of the highest probability
+                    moveIndex = i;
+                }
+            }
         }
 
         return moveIndex;
     }
-
-    private double[] flattenAndReshapeBoard(Board board) {
-        double[] flattenedInput = new double[NUM_INPUTS];
-        int counter = 0;
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                flattenedInput[counter] = (board.getBoard()[i][j]);
-                counter++;
-            }
-        }
-        return flattenedInput;
-    }
-
 
     private double[] convertBoardToInput(Board board) {
         double[] input = new double[NUM_INPUTS];
@@ -179,7 +174,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration / 100000) {
+                    switch (iteration / 10000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -207,13 +202,16 @@ public class NeuralNetworkPlayer {
                         case 8:
                             moveIndex = makeMove(board, 0.2);
                             break;
-                        default:
+                        case 9:
                             moveIndex = makeMove(board, 0.1);
+                            break;
+                        default:
+                            moveIndex = makeMove(board, 0.05);
                             break;
                     }
                 }
 
-                double[] input = flattenAndReshapeBoard(board);
+                double[] input = convertBoardToInput(board);
                 inputs.add(input);
 
                 // Play the move and get the next player
@@ -285,7 +283,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration / 100000) {
+                    switch (iteration / 10000) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -313,13 +311,16 @@ public class NeuralNetworkPlayer {
                         case 8:
                             moveIndex = makeMove(board, 0.2);
                             break;
-                        default:
+                        case 9:
                             moveIndex = makeMove(board, 0.1);
+                            break;
+                        default:
+                            moveIndex = makeMove(board, 0.05);
                             break;
                     }
                 }
 
-                double[] input = flattenAndReshapeBoard(board);
+                double[] input = convertBoardToInput(board);
                 inputs.add(input);
 
                 // Play the move and get the next player

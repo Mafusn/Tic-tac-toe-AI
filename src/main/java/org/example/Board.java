@@ -83,9 +83,9 @@ public class Board {
         displayBoard();
     }
 
-    public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO, int epsilon) {
+    public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
         while(true) {
-            //displayBoard();
+            displayBoard();
             System.out.println();
 
             aiPlayerX.makeMove(this, 'X', epsilon);
@@ -99,7 +99,7 @@ public class Board {
                 break;
             }
 
-            //displayBoard();
+            displayBoard();
             System.out.println();
 
             aiPlayerO.makeMove(this, 'O', epsilon);
@@ -113,7 +113,7 @@ public class Board {
                 break;
             }
         }
-        //displayBoard();
+        displayBoard();
     }
 
     public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {

@@ -19,35 +19,35 @@ public class App
         AiPlayer aiPlayer10 = new AiPlayer(10);
         AiPlayer aiPlayer11 = new AiPlayer(11);
 
-        //aiPlayer11.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 11, 100);
-        //aiPlayer11.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 11, 1000);
+        //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100, 0, 100);
+        //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100, 0, 1000);
 
-        /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 1, 10);
-        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 3, 100);
-        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 4, 1000);
-        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 5, 10000);
+        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 1, 10);
+        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 2, 100);
+        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 3, 1000);
+        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(100000, 4, 10000);
 
-        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 2, 10);
+        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 5, 10);
         aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 6, 100);
         aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 7, 1000);
-        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 8, 10000);*/
+        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(100000, 8, 10000);
 
 
         int numGames= 1000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startOnlyAiGameWithoutDisplaying(aiPlayer11, aiPlayer2, 0.1);
+            board.startOnlyAiGameWithoutDisplaying(aiPlayer1, aiPlayer0, 0.1);
         }
         System.out.println("X wins: " + board.getXWins() + "\nO wins: " + board.getOWins() + "\nTies: " + board.getTies());
 
         Board board1 = new Board();
         for (int i = 0; i < numGames; i++) {
             board1.clearBoard();
-            board1.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer11, 0.1);
+            board1.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer0, 0.1);
         }
         System.out.println("X wins: " + board1.getXWins() + "\nO wins: " + board1.getOWins() + "\nTies: " + board1.getTies());
 
-        /*Board board2 = new Board();
+        Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
             board2.startOnlyAiGameWithoutDisplaying(aiPlayer3, aiPlayer0, 0.1);
@@ -87,6 +87,6 @@ public class App
             board7.clearBoard();
             board7.startOnlyAiGameWithoutDisplaying(aiPlayer8, aiPlayer0, 0.1);
         }
-        System.out.println("X wins: " + board7.getXWins() + "\nO wins: " + board7.getOWins() + "\nTies: " + board7.getTies());*/
+        System.out.println("X wins: " + board7.getXWins() + "\nO wins: " + board7.getOWins() + "\nTies: " + board7.getTies());
     }
 }
