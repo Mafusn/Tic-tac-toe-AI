@@ -9,7 +9,7 @@ public class App
         Board board = new Board();
 
         AiPlayer aiPlayer0 = new AiPlayer(0);
-        AiPlayer aiPlayer1 = new AiPlayer(1); // Bedst
+        AiPlayer aiPlayer1 = new AiPlayer(1); // Bedst trænet med at 'O' bliver sat random
         AiPlayer aiPlayer2 = new AiPlayer(2);
         AiPlayer aiPlayer3 = new AiPlayer(3);
         AiPlayer aiPlayer4 = new AiPlayer(4);
@@ -37,7 +37,7 @@ public class App
         }
         board1.showWins(numGames);
 
-        Board board2 = new Board();
+        /*Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
             board2.startOnlyAiGameWithoutDisplaying(aiPlayer0, aiPlayer3, 0.1);
