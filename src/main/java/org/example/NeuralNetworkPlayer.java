@@ -357,7 +357,6 @@ public class NeuralNetworkPlayer {
                 moves++;
             }
 
-            System.out.println("Moves: " + moves);
             // Assign rewards based on game outcome
             if (board.checkWin('X')) {
                 reward += 1.0;
@@ -366,6 +365,8 @@ public class NeuralNetworkPlayer {
             } else {
                 reward -= 0.2;
             }
+
+            reward -= moves / 100.0 * 4;
 
             // Create labels for each input
             for (int i = 0; i < inputs.size(); i++) {

@@ -21,15 +21,15 @@ public class App
         AiPlayer aiPlayer10 = new AiPlayer(10);
         AiPlayer aiPlayer11 = new AiPlayer(11);
 
-        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 2, 1000);
-        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 3, 1000);
-        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(250000, 4, 1000);
-        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(250000, 5, 1000);
+        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 6, 1000);
+        aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 7, 1000);
+        /*aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(250000, 4, 1000);
+        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(250000, 5, 1000);*/
 
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer1, 0.1);
+            board.startOnlyAiGameWithoutDisplaying(aiPlayer6, aiPlayer1, 0.1);
             //board.startOnlyAiGame(aiPlayer1, aiPlayer2, 0.1);
         }
         board.showWins(numGames);
@@ -37,25 +37,25 @@ public class App
         Board board1 = new Board();
         for (int i = 0; i < numGames; i++) {
             board1.clearBoard();
-            board1.startOnlyAiGameWithoutDisplaying(aiPlayer3, aiPlayer1, 0.1);
+            board1.startOnlyAiGameWithoutDisplaying(aiPlayer7, aiPlayer1, 0.1);
         }
         board1.showWins(numGames);
 
         Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
-            board2.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer1, 0.01);
+            board2.startOnlyAiGameWithoutDisplaying(aiPlayer6, aiPlayer1, 0.01);
         }
         board2.showWins(numGames);
 
         Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
-            board3.startOnlyAiGameWithoutDisplaying(aiPlayer3, aiPlayer1, 0.01);
+            board3.startOnlyAiGameWithoutDisplaying(aiPlayer7, aiPlayer1, 0.01);
         }
         board3.showWins(numGames);
 
-        Board board4 = new Board();
+        /*Board board4 = new Board();
         for (int i = 0; i < numGames; i++) {
             board4.clearBoard();
             board4.startOnlyAiGameWithoutDisplaying(aiPlayer4, aiPlayer1, 0.1);
