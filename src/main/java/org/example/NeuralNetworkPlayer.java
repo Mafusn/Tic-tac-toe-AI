@@ -105,6 +105,7 @@ public class NeuralNetworkPlayer {
 
         // Make a prediction using the model
         INDArray output = model.output(input);
+        //System.out.println("Output: " + output + "model: " + model);
 
         int moveIndex = 0;
         //System.out.println("BestMoveNotAvailable: " + bestMoveNotAvailable);

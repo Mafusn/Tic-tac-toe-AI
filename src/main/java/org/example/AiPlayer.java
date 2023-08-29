@@ -14,7 +14,7 @@ public class AiPlayer {
     }
 
     public Board makeMove(Board board, char player, double epsilon) {
-        int moveIndex = neuralNetworkPlayer.makeMove(board, epsilon); // Get move index from neural network
+        int moveIndex = this.neuralNetworkPlayer.makeMove(board, epsilon); // Get move index from neural network
         int row = moveIndex / 3;
         int col = moveIndex % 3;
 
@@ -25,7 +25,7 @@ public class AiPlayer {
                 validMove = true;
             } else {
                 // Handle invalid move by getting a new move from the neural network
-                moveIndex = neuralNetworkPlayer.makeMove(board, epsilon);
+                moveIndex = this.neuralNetworkPlayer.makeMove(board, epsilon);
                 row = moveIndex / 3;
                 col = moveIndex % 3;
             }
