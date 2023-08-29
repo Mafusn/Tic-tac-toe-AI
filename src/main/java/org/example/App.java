@@ -27,7 +27,7 @@ public class App
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startOnlyAiGameWithoutDisplaying(aiPlayer8, aiPlayer1, 0.1);
+            board.startOnlyAiGameWithoutDisplaying(aiPlayer10, aiPlayer1, 0.1);
             //board.startOnlyAiGame(aiPlayer1, aiPlayer2, 0.1);
         }
         board.showWins(numGames);
@@ -42,14 +42,14 @@ public class App
         Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
-            board2.startOnlyAiGameWithoutDisplaying(aiPlayer8, aiPlayer1, 0.01);
+            board2.startOnlyAiGameWithoutDisplaying(aiPlayer10, aiPlayer1, 0.0001);
         }
         board2.showWins(numGames);
 
         Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
-            board3.startOnlyAiGameWithoutDisplaying(aiPlayer9, aiPlayer1, 0.01);
+            board3.startOnlyAiGameWithoutDisplaying(aiPlayer9, aiPlayer1, 0.0001);
         }
         board3.showWins(numGames);
 

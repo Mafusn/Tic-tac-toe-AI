@@ -279,6 +279,9 @@ public class Board {
         double xWins = (double) getXWins() / numGames * 100;
         double oWins = (double) getOWins() / numGames * 100;
         double ties = (double) getTies() / numGames * 100;
-        System.out.println("X wins: " + xWins + "%\nO wins: " + oWins + "%\nTies: " + ties + "%");
+        System.out.println("X wins: " + String.format("%.2f", xWins) + "%");
+        System.out.println("O wins: " + String.format("%.2f", oWins) + "%");
+        System.out.println("Ties: " + String.format("%.2f", ties) + "%");
+
     }
 }
