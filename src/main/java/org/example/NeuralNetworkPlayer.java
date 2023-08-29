@@ -194,7 +194,7 @@ public class NeuralNetworkPlayer {
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration / 90000) {
+                    switch (iteration / (numIterations / 12)) {
                         case 0:
                             moveIndex = makeMove(board, 1);
                             break;
@@ -304,44 +304,48 @@ public class NeuralNetworkPlayer {
             List<double[]> labels = new ArrayList<>();
 
             Board board = new Board(); // Create a new board for each game
-            char currentPlayer = 'O';
+            char currentPlayer = 'X';
 
             while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
-                    switch (iteration / 90000) {
-                        case 0:
-                            moveIndex = makeMove(board, 1);
-                            break;
-                        case 1:
-                            moveIndex = makeMove(board, 0.9);
-                            break;
-                        case 2:
-                            moveIndex = makeMove(board, 0.8);
-                            break;
-                        case 3:
-                            moveIndex = makeMove(board, 0.7);
-                            break;
-                        case 4:
-                            moveIndex = makeMove(board, 0.6);
-                            break;
-                        case 5:
-                            moveIndex = makeMove(board, 0.5);
-                            break;
-                        case 6:
-                            moveIndex = makeMove(board, 0.4);
-                            break;
-                        case 7:
-                            moveIndex = makeMove(board, 0.3);
-                            break;
-                        case 8:
-                            moveIndex = makeMove(board, 0.2);
-                            break;
-                        case 9:
-                            moveIndex = makeMove(board, 0.1);
-                            break;
-                        default:
-                            moveIndex = makeMove(board, 0.05);
-                            break;
+                    if (currentPlayer == 'O') {
+                        moveIndex = (int) (Math.random() * 9);
+                    } else {
+                        switch (iteration / (numIterations / 12)) {
+                            case 0:
+                                moveIndex = makeMove(board, 1);
+                                break;
+                            case 1:
+                                moveIndex = makeMove(board, 0.9);
+                                break;
+                            case 2:
+                                moveIndex = makeMove(board, 0.8);
+                                break;
+                            case 3:
+                                moveIndex = makeMove(board, 0.7);
+                                break;
+                            case 4:
+                                moveIndex = makeMove(board, 0.6);
+                                break;
+                            case 5:
+                                moveIndex = makeMove(board, 0.5);
+                                break;
+                            case 6:
+                                moveIndex = makeMove(board, 0.4);
+                                break;
+                            case 7:
+                                moveIndex = makeMove(board, 0.3);
+                                break;
+                            case 8:
+                                moveIndex = makeMove(board, 0.2);
+                                break;
+                            case 9:
+                                moveIndex = makeMove(board, 0.1);
+                                break;
+                            default:
+                                moveIndex = makeMove(board, 0.05);
+                                break;
+                        }
                     }
                 }
 
