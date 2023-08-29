@@ -35,7 +35,7 @@ public class App
         aiPlayer12.getNeuralNetworkPlayer().trainSelfPlay(5000000, 100, 'X');
         aiPlayer14.getNeuralNetworkPlayer().trainSelfPlay(5000000, 1000, 'X');
 
-        int numGames= 10;
+        int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
             board.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer1, 0.1);
