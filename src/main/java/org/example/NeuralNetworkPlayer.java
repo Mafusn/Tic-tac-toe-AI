@@ -5,6 +5,7 @@ import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
+import org.deeplearning4j.nn.conf.layers.DropoutLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
@@ -32,7 +33,7 @@ public class NeuralNetworkPlayer {
     private org.deeplearning4j.nn.multilayer.MultiLayerNetwork model;
     private int modelNumber;
 
-    public NeuralNetworkPlayer(int modelNumber) throws IOException {
+    public NeuralNetworkPlayer(int modelNumber, double dropoutRate) throws IOException {
         // Initialize neural network configuration
         this.modelNumber = modelNumber;
         configuration = new NeuralNetConfiguration.Builder()
@@ -43,10 +44,13 @@ public class NeuralNetworkPlayer {
                 .layer(0, new DenseLayer.Builder()
                         .nIn(NUM_INPUTS)
                         .nOut(NUM_HIDDEN_NODES)
-                        .activation(Activation.RELU) // .activation(Activation.LEAKYRELU)
+                        .activation(Activation.LEAKYRELU) // .activation(Activation.LEAKYRELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
-                .layer(1, new OutputLayer.Builder()
+                .layer(1, new DropoutLayer.Builder() // Add a Dropout layer
+                        .dropOut(dropoutRate) // Specify dropout rate (adjust as needed)
+                        .build())
+                .layer(2, new OutputLayer.Builder()
                         .nIn(NUM_HIDDEN_NODES)
                         .nOut(NUM_OUTPUTS)
                         .activation(Activation.SOFTMAX)
@@ -104,7 +108,7 @@ public class NeuralNetworkPlayer {
 
         // Make a prediction using the model
         INDArray output = model.output(input);
-        //System.out.println("Output: " + output + " modelNumber: " + modelNumber);
+        //System.out.println("Output: " + output + " modelNumber: " + this.modelNumber);
 
         int moveIndex = 0;
         //System.out.println("BestMoveNotAvailable: " + bestMoveNotAvailable);

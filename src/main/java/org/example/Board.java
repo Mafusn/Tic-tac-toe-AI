@@ -117,6 +117,7 @@ public class Board {
     }
 
     public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
+        int moveIndex = (int) (Math.random() * 9);
         while(true) {
             aiPlayerX.makeMove(this, 'X', epsilon);
             if (checkWin('X')) {
@@ -127,7 +128,10 @@ public class Board {
                 break;
             }
 
-            aiPlayerO.makeMove(this, 'O', epsilon);
+            while (!isValidMove(board, moveIndex / 3, moveIndex % 3)) {
+                moveIndex = (int) (Math.random() * 9);
+            }
+            board[moveIndex / 3][moveIndex % 3] = 'O';
             if (checkWin('O')) {
                 oWins++;
                 break;

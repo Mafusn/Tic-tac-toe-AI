@@ -7,27 +7,35 @@ public class App
     public static void main( String[] args ) throws IOException {
         Board board = new Board();
 
-        AiPlayer aiPlayer0 = new AiPlayer(0);
-        AiPlayer aiPlayer1 = new AiPlayer(1); // Bedst trænet med at 'O' bliver sat random
-        AiPlayer aiPlayer2 = new AiPlayer(2);
-        AiPlayer aiPlayer3 = new AiPlayer(3);
-        AiPlayer aiPlayer4 = new AiPlayer(4);
-        AiPlayer aiPlayer5 = new AiPlayer(5);
-        AiPlayer aiPlayer6 = new AiPlayer(6);
-        AiPlayer aiPlayer7 = new AiPlayer(7);
-        AiPlayer aiPlayer8 = new AiPlayer(8);
-        AiPlayer aiPlayer9 = new AiPlayer(9);
+        AiPlayer aiPlayer0 = new AiPlayer(0, 0.5);
+        AiPlayer aiPlayer1 = new AiPlayer(1, 0.5); // Bedst trænet med at 'O' bliver sat random
+        AiPlayer aiPlayer2 = new AiPlayer(2, 0.5);
+        AiPlayer aiPlayer3 = new AiPlayer(3, 0.5);
+        AiPlayer aiPlayer4 = new AiPlayer(4, 0.5);
+        AiPlayer aiPlayer5 = new AiPlayer(5, 0.5);
+        AiPlayer aiPlayer6 = new AiPlayer(6, 0.5);
+        AiPlayer aiPlayer7 = new AiPlayer(7, 0.5);
+        AiPlayer aiPlayer8 = new AiPlayer(8, 0.5);
+        AiPlayer aiPlayer9 = new AiPlayer(9, 0.5);
+        AiPlayer aiPlayer10 = new AiPlayer(10, 0.5);
+        AiPlayer aiPlayer11 = new AiPlayer(11, 0.5);
+        AiPlayer aiPlayer12 = new AiPlayer(12, 0.5);
+        AiPlayer aiPlayer14 = new AiPlayer(14, 0.5);
 
         aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'X');
-        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlay(100000, 10000, 'X');
-        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'O');
-        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'O');
-        aiPlayer7.getNeuralNetworkPlayer().trainSelfPlay(100000, 10000, 'O');
-        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlay(1000000, 1000, 'X');
-        aiPlayer9.getNeuralNetworkPlayer().trainSelfPlay(1000000, 1000, 'O');
+        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlay(250000, 100, 'X');
+        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlay(250000, 1000, 'X');
+        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
+        aiPlayer7.getNeuralNetworkPlayer().trainSelfPlay(500000, 1000, 'X');
+        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlay(1000000, 100, 'X');
+        aiPlayer9.getNeuralNetworkPlayer().trainSelfPlay(1000000, 1000, 'X');
+        aiPlayer10.getNeuralNetworkPlayer().trainSelfPlay(2500000, 100, 'X');
+        aiPlayer11.getNeuralNetworkPlayer().trainSelfPlay(2500000, 1000, 'X');
+        aiPlayer12.getNeuralNetworkPlayer().trainSelfPlay(5000000, 100, 'X');
+        aiPlayer14.getNeuralNetworkPlayer().trainSelfPlay(5000000, 1000, 'X');
 
-        int numGames= 0;
+        int numGames= 10;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
             board.startOnlyAiGameWithoutDisplaying(aiPlayer2, aiPlayer1, 0.1);
@@ -45,18 +53,18 @@ public class App
         Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
-            board2.startOnlyAiGameWithoutDisplaying(aiPlayer4, aiPlayer1, 0.1);
+            board2.startOnlyAiGameWithoutDisplaying(aiPlayer12, aiPlayer1, 0.1);
         }
         board2.showWins(numGames);
 
         Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
-            board3.startOnlyAiGameWithoutDisplaying(aiPlayer5, aiPlayer1, 0.1);
+            board3.startOnlyAiGameWithoutDisplaying(aiPlayer14, aiPlayer1, 0.1);
         }
         board3.showWins(numGames);
 
-        Board board4 = new Board();
+        /*Board board4 = new Board();
         for (int i = 0; i < numGames; i++) {
             board4.clearBoard();
             board4.startOnlyAiGameWithoutDisplaying(aiPlayer6, aiPlayer1, 0.1);
@@ -82,6 +90,6 @@ public class App
             board7.clearBoard();
             board7.startOnlyAiGameWithoutDisplaying(aiPlayer9, aiPlayer1, 0.1);
         }
-        board7.showWins(numGames);
+        board7.showWins(numGames);*/
     }
 }
