@@ -16,7 +16,6 @@ import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-import oshi.json.util.JsonUtil;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -376,6 +375,210 @@ public class NeuralNetworkPlayer {
             }
 
             reward -= moves / 100.0 * 4;
+
+            // Create labels for each input
+            for (int i = 0; i < inputs.size(); i++) {
+                labels.add(new double[NUM_OUTPUTS]); // Initialize with zeros
+                labels.get(i)[moveIndex] = reward;
+            }
+
+            // Train the model with the collected data
+            if (iteration % traininginterval == 0) {
+                train(inputs, labels, modelNumber, numIterations);
+            }
+        }
+        FileWriter fileWriter = new FileWriter(fileName);
+        int totalIterations = iterations + numIterations;
+        fileWriter.write(Integer.toString(totalIterations));
+        fileWriter.close();
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        iterations = Integer.parseInt(line);
+        bufferedReader.close();
+        System.out.println("Model " + modelNumber + " has now done " + iterations + " iterations.");
+    }
+
+    public void trainSelfPlayWithLittleEpsilon(int numIterations, int modelNumber, int traininginterval) throws IOException {
+        int moveIndex = (int) (Math.random() * 9);
+        int iterations = 0;
+        int moves = 0;
+
+        String fileName = "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/iterations" + modelNumber + ".txt";
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            iterations = Integer.parseInt(line);
+            bufferedReader.close();
+            System.out.println("Numbber of iterations done before this training session: " + iterations);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + fileName + "'");
+        }
+
+        for (int iteration = 0; iteration < numIterations; iteration++) {
+            double reward = 0;
+            moves = 0;
+            if (iteration % 100 == 0) {
+                System.out.println("Iteration: " + iteration);
+            }
+
+            List<double[]> inputs = new ArrayList<>();
+            List<double[]> labels = new ArrayList<>();
+
+            Board board = new Board(); // Create a new board for each game
+            char currentPlayer = 'O';
+
+            while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
+                while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
+                    if (currentPlayer == 'O') {
+                        moveIndex = (int) (Math.random() * 9);
+                    } else {
+                        switch (iteration / (numIterations / 12)) {
+                            case 0:
+                                moveIndex = makeMove(board, 0.2);
+                                break;
+                            case 1:
+                                moveIndex = makeMove(board, 0.18);
+                                break;
+                            case 2:
+                                moveIndex = makeMove(board, 0.16);
+                                break;
+                            case 3:
+                                moveIndex = makeMove(board, 0.14);
+                                break;
+                            case 4:
+                                moveIndex = makeMove(board, 0.12);
+                                break;
+                            case 5:
+                                moveIndex = makeMove(board, 0.1);
+                                break;
+                            case 6:
+                                moveIndex = makeMove(board, 0.08);
+                                break;
+                            case 7:
+                                moveIndex = makeMove(board, 0.06);
+                                break;
+                            case 8:
+                                moveIndex = makeMove(board, 0.04);
+                                break;
+                            case 9:
+                                moveIndex = makeMove(board, 0.02);
+                                break;
+                            default:
+                                moveIndex = makeMove(board, 0.001);
+                                break;
+                        }
+                    }
+                }
+
+                double[] input = convertBoardToInput(board);
+                inputs.add(input);
+
+                // Play the move and get the next player
+                int row = moveIndex / 3;
+                int col = moveIndex % 3;
+                board.getBoard()[row][col] = currentPlayer;
+                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+
+                moves++;
+            }
+
+            // Assign rewards based on game outcome
+            if (board.checkWin('X')) {
+                reward += 1.0;
+            } else if (board.checkWin('O')) {
+                reward += -1.0;
+            } else {
+                reward -= 0.2;
+            }
+
+            reward -= moves / 100.0 * 2;
+
+            // Create labels for each input
+            for (int i = 0; i < inputs.size(); i++) {
+                labels.add(new double[NUM_OUTPUTS]); // Initialize with zeros
+                labels.get(i)[moveIndex] = reward;
+            }
+
+            // Train the model with the collected data
+            if (iteration % traininginterval == 0) {
+                train(inputs, labels, modelNumber, numIterations);
+            }
+        }
+        FileWriter fileWriter = new FileWriter(fileName);
+        int totalIterations = iterations + numIterations;
+        fileWriter.write(Integer.toString(totalIterations));
+        fileWriter.close();
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        iterations = Integer.parseInt(line);
+        bufferedReader.close();
+        System.out.println("Model " + modelNumber + " has now done " + iterations + " iterations.");
+    }
+
+    public void trainSelfPlayWithLittleAndConstantEpsilon(int numIterations, int modelNumber, int traininginterval) throws IOException {
+        int moveIndex = (int) (Math.random() * 9);
+        int iterations = 0;
+        int moves = 0;
+
+        String fileName = "C:/Uni/Github/Tic-tac-toe-AI/src/main/java/modelPackage/iterations" + modelNumber + ".txt";
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            iterations = Integer.parseInt(line);
+            bufferedReader.close();
+            System.out.println("Numbber of iterations done before this training session: " + iterations);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + fileName + "'");
+        }
+
+        for (int iteration = 0; iteration < numIterations; iteration++) {
+            double reward = 0;
+            moves = 0;
+            if (iteration % 100 == 0) {
+                System.out.println("Iteration: " + iteration);
+            }
+
+            List<double[]> inputs = new ArrayList<>();
+            List<double[]> labels = new ArrayList<>();
+
+            Board board = new Board(); // Create a new board for each game
+            char currentPlayer = 'O';
+
+            while (!board.checkWin('X') && !board.checkWin('O') && !board.checkTie()) {
+                while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
+                    if (currentPlayer == 'O') {
+                        moveIndex = (int) (Math.random() * 9);
+                    } else {
+                        moveIndex = makeMove(board, 0.01);
+                    }
+                }
+
+                double[] input = convertBoardToInput(board);
+                inputs.add(input);
+
+                // Play the move and get the next player
+                int row = moveIndex / 3;
+                int col = moveIndex % 3;
+                board.getBoard()[row][col] = currentPlayer;
+                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+
+                moves++;
+            }
+
+            // Assign rewards based on game outcome
+            if (board.checkWin('X')) {
+                reward += 1.0;
+            } else if (board.checkWin('O')) {
+                reward += -1.0;
+            } else {
+                reward -= 0.2;
+            }
+
+            reward -= moves / 100.0 * 2;
 
             // Create labels for each input
             for (int i = 0; i < inputs.size(); i++) {

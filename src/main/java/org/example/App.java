@@ -1,7 +1,6 @@
 package org.example;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class App
 {
@@ -19,13 +18,13 @@ public class App
         AiPlayer aiPlayer8 = new AiPlayer(8);
         AiPlayer aiPlayer9 = new AiPlayer(9);
 
-        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 3, 1000);
-        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 4, 1000);
+        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayWithLittleEpsilon(1000000, 4, 1000);
+        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayWithLittleAndConstantEpsilon(1000000, 5, 1000);
 
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startOnlyAiGameWithoutDisplaying(aiPlayer3, aiPlayer0, 0.1);
+            board.startOnlyAiGameWithoutDisplaying(aiPlayer4, aiPlayer0, 0.1);
             //board.startOnlyAiGame(aiPlayer1, aiPlayer2, 0.1);
         }
         board.showWins(numGames);
@@ -33,21 +32,21 @@ public class App
         Board board1 = new Board();
         for (int i = 0; i < numGames; i++) {
             board1.clearBoard();
-            board1.startOnlyAiGameWithoutDisplaying(aiPlayer4, aiPlayer0, 0.1);
+            board1.startOnlyAiGameWithoutDisplaying(aiPlayer5, aiPlayer0, 0.1);
         }
         board1.showWins(numGames);
 
-        /*Board board2 = new Board();
+        Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
-            board2.startOnlyAiGameWithoutDisplaying(aiPlayer0, aiPlayer3, 0.1);
+            board2.startOnlyAiGameWithoutDisplaying(aiPlayer4, aiPlayer0, 0.01);
         }
         board2.showWins(numGames);
 
         Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
-            board3.startOnlyAiGameWithoutDisplaying(aiPlayer0, aiPlayer4, 0.1);
+            board3.startOnlyAiGameWithoutDisplaying(aiPlayer5, aiPlayer0, 0.01);
         }
         board3.showWins(numGames);
 
