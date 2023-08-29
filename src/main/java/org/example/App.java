@@ -21,8 +21,8 @@ public class App
         AiPlayer aiPlayer10 = new AiPlayer(10);
         AiPlayer aiPlayer11 = new AiPlayer(11);
 
-        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 6, 1000);
-        aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 7, 1000);
+        //aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 6, 1000);
+        //aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 7, 1000);
         /*aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(250000, 4, 1000);
         aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(250000, 5, 1000);*/
 
