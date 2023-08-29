@@ -21,8 +21,8 @@ public class App
         AiPlayer aiPlayer10 = new AiPlayer(10);
         AiPlayer aiPlayer11 = new AiPlayer(11);
 
-        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 8, 1000);
-        aiPlayer9.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 9, 1000); // træner med at 'O' bliver sat random
+        //aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(1000000, 8, 1000);
+        //aiPlayer9.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(1000000, 9, 1000); // træner med at 'O' bliver sat random
 
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
