@@ -81,15 +81,6 @@ public class NeuralNetworkPlayer {
         // Create a DataSetIterator with the desired batch size
         int batchSize = 64;
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(dataSet.asList(), batchSize);
-        while (dataSetIterator.hasNext()) {
-            DataSet batch = dataSetIterator.next();
-            INDArray inputs1 = batch.getFeatures();
-            INDArray labels1 = batch.getLabels();
-
-            // Verify alignment and order of inputs and labels
-            System.out.println("Batch Inputs:\n" + inputs1);
-            System.out.println("Batch Labels:\n" + labels1);
-        }
 
         // Build and train the neural network model
         model = new MultiLayerNetwork(configuration);
