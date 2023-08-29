@@ -20,7 +20,7 @@ public class App
 
         //aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayWithLittleEpsilon(1000000, 4, 1000);
         aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayToBeFirst(5000000, 5, 1000);
-        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(5000000, 5, 1000);
+        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayToBeSecond(5000000, 6, 1000);
 
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
