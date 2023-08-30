@@ -47,7 +47,7 @@ public class NeuralNetworkPlayer {
                         .activation(Activation.LEAKYRELU) // .activation(Activation.LEAKYRELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
-                .layer(2, new OutputLayer.Builder()
+                .layer(1, new OutputLayer.Builder()
                         .nIn(NUM_HIDDEN_NODES)
                         .nOut(NUM_OUTPUTS)
                         .activation(Activation.SOFTMAX)
