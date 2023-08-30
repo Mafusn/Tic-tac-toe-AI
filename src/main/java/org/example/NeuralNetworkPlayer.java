@@ -44,10 +44,16 @@ public class NeuralNetworkPlayer {
                 .layer(0, new DenseLayer.Builder()
                         .nIn(NUM_INPUTS)
                         .nOut(NUM_HIDDEN_NODES)
-                        .activation(Activation.LEAKYRELU) // .activation(Activation.LEAKYRELU)
+                        .activation(Activation.LEAKYRELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
-                .layer(1, new OutputLayer.Builder()
+                .layer(1, new DenseLayer.Builder() // Add another hidden layer here
+                        .nIn(NUM_HIDDEN_NODES)
+                        .nOut(NUM_HIDDEN_NODES) // Adjust the number of hidden nodes as needed
+                        .activation(Activation.LEAKYRELU)
+                        .weightInit(WeightInit.XAVIER)
+                        .build())
+                .layer(2, new OutputLayer.Builder()
                         .nIn(NUM_HIDDEN_NODES)
                         .nOut(NUM_OUTPUTS)
                         .activation(Activation.SOFTMAX)
