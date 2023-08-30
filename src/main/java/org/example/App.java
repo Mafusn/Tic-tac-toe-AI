@@ -27,7 +27,8 @@ public class App
         AiPlayer aiPlayer8 = new AiPlayer(8); //
         AiPlayer aiPlayer9 = new AiPlayer(9); //
 
-        aiPlayer0.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
+        // Kør den her og se om det gør modellen bedre
+        aiPlayer0.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
         /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
         aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'X');
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlay(250000, 100, 'X');
@@ -59,14 +60,14 @@ public class App
         }
         board2.showWins(numGames);
 
-        Board board3 = new Board();
+        /*Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
             board3.startOnlyAiGameWithoutDisplaying(aiPlayer0, 0.001);
         }
         board3.showWins(numGames);
 
-        /*Board board4 = new Board();
+        Board board4 = new Board();
         for (int i = 0; i < numGames; i++) {
             board4.clearBoard();
             board4.startOnlyAiGameWithoutDisplaying(aiPlayer5, 0.01);
