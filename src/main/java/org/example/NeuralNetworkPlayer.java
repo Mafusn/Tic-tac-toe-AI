@@ -111,10 +111,9 @@ public class NeuralNetworkPlayer {
 
         // Make a prediction using the model
         INDArray output = model.output(input);
-        //System.out.println("Output: " + output + " modelNumber: " + this.modelNumber);
 
         int moveIndex = 0;
-        //System.out.println("BestMoveNotAvailable: " + bestMoveNotAvailable);
+
         if (Math.random() < epsilon) {
             // Explore: Choose a random move
             do {
@@ -126,14 +125,14 @@ public class NeuralNetworkPlayer {
             double[] sortedOutputArray = sortedOutput.toDoubleVector();
 
             // Find the best move that is valid starting from the highest probability
-            for (int i = 8; 0 < i; i--) {
-                for (int j = 8; 0 < j; j--) {
+            for (int i = 8; i >= 0; i--) {
+                for (int j = 8; j >= 0; j--) {
                     if (output.getDouble(j) == sortedOutputArray[i] && board.isValidMove(board.getBoard(), j / 3, j % 3)) {
                         moveIndex = j;
                         break;
                     }
                 }
-                if (output.getDouble(moveIndex) == sortedOutputArray[i] && board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
+                if (board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
                     break;
                 }
             }
@@ -141,6 +140,7 @@ public class NeuralNetworkPlayer {
 
         return moveIndex;
     }
+
 
     private INDArray sortOutputForMakeMove(INDArray output) {
         double[] outputArray = output.toDoubleVector();
