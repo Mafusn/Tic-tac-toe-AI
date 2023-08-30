@@ -11,6 +11,11 @@ public class App
         // Træningsinterval på 1000 er bedst
         // 64 Hidden nodes har virket bedst indtil videre
 
+        // Prøv det her i morgen
+        //Hyperparameter Tuning: Experiment with different hyperparameters such as learning rates, batch sizes,
+        // and the number of training iterations. Use techniques like grid search or random search
+        // to find the best combination of hyperparameters for your specific problem.
+
         AiPlayer aiPlayer0 = new AiPlayer(0); // 84% win rate - Iterations: 500.000, Training interval: 1000, started - 2 hidden layers - See ConfigPictures/Model0 for configuration
         AiPlayer aiPlayer1 = new AiPlayer(1); //
         AiPlayer aiPlayer2 = new AiPlayer(2); //
@@ -22,19 +27,20 @@ public class App
         AiPlayer aiPlayer8 = new AiPlayer(8); //
         AiPlayer aiPlayer9 = new AiPlayer(9); //
 
-        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
+        aiPlayer0.getNeuralNetworkPlayer().trainSelfPlay(1000000, 100, 'X');
+        /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
         aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'X');
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlay(250000, 100, 'X');
         aiPlayer4.getNeuralNetworkPlayer().trainSelfPlay(250000, 1000, 'X');
         aiPlayer5.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
         aiPlayer6.getNeuralNetworkPlayer().trainSelfPlay(500000, 1000, 'X');
         aiPlayer7.getNeuralNetworkPlayer().trainSelfPlay(1000000, 100, 'X');
-        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlay(1000000, 1000, 'X');
+        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlay(1000000, 1000, 'X');*/
 
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startOnlyAiGameWithoutDisplaying(aiPlayer1, 0.01);
+            board.startOnlyAiGameWithoutDisplaying(aiPlayer0, 0.1);
             //board.startOnlyAiGame(aiPlayer1, aiPlayer2, 0.1);
         }
         board.showWins(numGames);
@@ -42,25 +48,25 @@ public class App
         Board board1 = new Board();
         for (int i = 0; i < numGames; i++) {
             board1.clearBoard();
-            board1.startOnlyAiGameWithoutDisplaying(aiPlayer2, 0.01);
+            board1.startOnlyAiGameWithoutDisplaying(aiPlayer0, 0.01);
         }
         board1.showWins(numGames);
 
         Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
-            board2.startOnlyAiGameWithoutDisplaying(aiPlayer3, 0.01);
+            board2.startOnlyAiGameWithoutDisplaying(aiPlayer0, 0.001);
         }
         board2.showWins(numGames);
 
         Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
-            board3.startOnlyAiGameWithoutDisplaying(aiPlayer4, 0.01);
+            board3.startOnlyAiGameWithoutDisplaying(aiPlayer0, 0.001);
         }
         board3.showWins(numGames);
 
-        Board board4 = new Board();
+        /*Board board4 = new Board();
         for (int i = 0; i < numGames; i++) {
             board4.clearBoard();
             board4.startOnlyAiGameWithoutDisplaying(aiPlayer5, 0.01);

@@ -209,7 +209,7 @@ public class NeuralNetworkPlayer {
                 // Make sure the moveIndex is valid for the current board state
                 while (!board.isValidMove(board.getBoard(), moveIndex / 3, moveIndex % 3)) {
                     if (currentPlayer == 'O') {
-                        moveIndex = (int) (Math.random() * 9);
+                        moveIndex = makeMove(board, 0.001);
                     } else {
                         switch (iteration / (numIterations / 12)) {
                             case 0:
