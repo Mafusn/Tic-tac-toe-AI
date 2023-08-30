@@ -27,7 +27,7 @@ import java.io.IOException;
 
 public class NeuralNetworkPlayer {
     private static final int NUM_INPUTS = 9;
-    private static final int NUM_HIDDEN_NODES = 32;
+    private static final int NUM_HIDDEN_NODES = 64;
     private static final int NUM_OUTPUTS = 9;
     private MultiLayerConfiguration configuration;
     private org.deeplearning4j.nn.multilayer.MultiLayerNetwork model;
