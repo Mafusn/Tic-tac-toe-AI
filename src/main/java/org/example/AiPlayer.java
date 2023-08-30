@@ -5,8 +5,8 @@ import java.io.IOException;
 public class AiPlayer {
     private NeuralNetworkPlayer neuralNetworkPlayer;
 
-    public AiPlayer(int modelNumber, double droputRate) throws IOException {
-        neuralNetworkPlayer = new NeuralNetworkPlayer(modelNumber, droputRate);
+    public AiPlayer(int modelNumber) throws IOException {
+        neuralNetworkPlayer = new NeuralNetworkPlayer(modelNumber);
     }
 
     public NeuralNetworkPlayer getNeuralNetworkPlayer() {

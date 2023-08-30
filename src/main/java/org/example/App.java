@@ -7,26 +7,26 @@ public class App
     public static void main( String[] args ) throws IOException {
         Board board = new Board();
 
-        AiPlayer aiPlayer0 = new AiPlayer(0, 0.5);
-        AiPlayer aiPlayer1 = new AiPlayer(1, 0.5); // Bedst trænet med at 'O' bliver sat random
-        AiPlayer aiPlayer2 = new AiPlayer(2, 0.5);
-        AiPlayer aiPlayer3 = new AiPlayer(3, 0.5);
-        AiPlayer aiPlayer4 = new AiPlayer(4, 0.5);
-        AiPlayer aiPlayer5 = new AiPlayer(5, 0.5);
-        AiPlayer aiPlayer6 = new AiPlayer(6, 0.5);
-        AiPlayer aiPlayer7 = new AiPlayer(7, 0.5);
-        AiPlayer aiPlayer8 = new AiPlayer(8, 0.5);
-        AiPlayer aiPlayer9 = new AiPlayer(9, 0.5);
-        AiPlayer aiPlayer10 = new AiPlayer(10, 0.5);
-        AiPlayer aiPlayer11 = new AiPlayer(11, 0.5);
-        AiPlayer aiPlayer12 = new AiPlayer(12, 0.5);
-        AiPlayer aiPlayer14 = new AiPlayer(14, 0.5);
-        AiPlayer aiPlayer15 = new AiPlayer(15, 0);
-        AiPlayer aiPlayer16 = new AiPlayer(16, 0.25);
-        AiPlayer aiPlayer17 = new AiPlayer(17, 0.5);
-        AiPlayer aiPlayer18 = new AiPlayer(18, 0.75);
+        AiPlayer aiPlayer0 = new AiPlayer(0);
+        AiPlayer aiPlayer1 = new AiPlayer(1); // Bedst trænet med at 'O' bliver sat random
+        AiPlayer aiPlayer2 = new AiPlayer(2);
+        AiPlayer aiPlayer3 = new AiPlayer(3);
+        AiPlayer aiPlayer4 = new AiPlayer(4);
+        AiPlayer aiPlayer5 = new AiPlayer(5);
+        AiPlayer aiPlayer6 = new AiPlayer(6);
+        AiPlayer aiPlayer7 = new AiPlayer(7);
+        AiPlayer aiPlayer8 = new AiPlayer(8);
+        AiPlayer aiPlayer9 = new AiPlayer(9);
+        AiPlayer aiPlayer10 = new AiPlayer(10);
+        AiPlayer aiPlayer11 = new AiPlayer(11);
+        AiPlayer aiPlayer12 = new AiPlayer(12);
+        AiPlayer aiPlayer14 = new AiPlayer(14);
+        AiPlayer aiPlayer15 = new AiPlayer(15);
+        AiPlayer aiPlayer16 = new AiPlayer(16);
+        AiPlayer aiPlayer17 = new AiPlayer(17);
+        AiPlayer aiPlayer18 = new AiPlayer(18);
 
-        /*aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
+        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'X');
         aiPlayer4.getNeuralNetworkPlayer().trainSelfPlay(250000, 100, 'X');
         aiPlayer5.getNeuralNetworkPlayer().trainSelfPlay(250000, 1000, 'X');

@@ -33,7 +33,7 @@ public class NeuralNetworkPlayer {
     private org.deeplearning4j.nn.multilayer.MultiLayerNetwork model;
     private int modelNumber;
 
-    public NeuralNetworkPlayer(int modelNumber, double dropoutRate) throws IOException {
+    public NeuralNetworkPlayer(int modelNumber) throws IOException {
         // Initialize neural network configuration
         this.modelNumber = modelNumber;
         configuration = new NeuralNetConfiguration.Builder()
