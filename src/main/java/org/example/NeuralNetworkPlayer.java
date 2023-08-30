@@ -47,9 +47,6 @@ public class NeuralNetworkPlayer {
                         .activation(Activation.LEAKYRELU) // .activation(Activation.LEAKYRELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
-                .layer(1, new DropoutLayer.Builder() // Add a Dropout layer
-                        .dropOut(dropoutRate) // Specify dropout rate (adjust as needed)
-                        .build())
                 .layer(2, new OutputLayer.Builder()
                         .nIn(NUM_HIDDEN_NODES)
                         .nOut(NUM_OUTPUTS)

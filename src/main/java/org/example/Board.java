@@ -116,7 +116,7 @@ public class Board {
         displayBoard();
     }
 
-    public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
+    public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, double epsilon) {
         int moveIndex = (int) (Math.random() * 9);
         while(true) {
             aiPlayerX.makeMove(this, 'X', epsilon);
