@@ -10,6 +10,7 @@ public class App
         // Random mod random = 59% winrate for startende spiller
         // Træningsinterval på 1000 er bedst
         // 64 Hidden nodes har virket bedst indtil videre
+        // 64 batch size har givet bedste resultater
 
         // Prøv det her i morgen
         //Hyperparameter Tuning: Experiment with different hyperparameters such as learning rates, batch sizes,
