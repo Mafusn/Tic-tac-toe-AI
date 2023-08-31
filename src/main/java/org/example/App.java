@@ -28,7 +28,8 @@ public class App
         AiPlayer aiPlayer9 = new AiPlayer(9); //
 
         // Kør den her og se om det gør modellen bedre
-        aiPlayer0.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
+        //aiPlayer0.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
+
         /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
         aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'X');
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlay(250000, 100, 'X');
