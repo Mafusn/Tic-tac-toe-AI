@@ -69,7 +69,7 @@ public class NeuralNetworkPlayer {
         }
     }
 
-    public void train(List<double[]> inputs, List<double[]> labels, int modelNumber, int iterations) throws IOException {
+    public void train(List<double[]> inputs, List<double[]> labels, int modelNumber, int batchSize) throws IOException {
         // Convert inputs and labels to INDArray
         INDArray inputsArray = Nd4j.create(inputs.size(), NUM_INPUTS);
         for (int i = 0; i < inputs.size(); i++) {
@@ -85,7 +85,7 @@ public class NeuralNetworkPlayer {
         DataSet dataSet = new DataSet(inputsArray, labelsArray);
 
         // Create a DataSetIterator with the desired batch size
-        int batchSize = 64;
+        //int batchSize = 64;
         DataSetIterator dataSetIterator = new ListDataSetIterator<>(dataSet.asList(), batchSize);
 
         // Build and train the neural network model
@@ -168,7 +168,7 @@ public class NeuralNetworkPlayer {
         return input;
     }
 
-    public void trainSelfPlay(int numIterations, int trainingInterval, char startSymbol) throws IOException {
+    public void trainSelfPlay(int numIterations, int trainingInterval, char startSymbol, int batchSize) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         int iterations = 0;
         int moves = 0;
@@ -258,7 +258,7 @@ public class NeuralNetworkPlayer {
 
             // Train the model with the collected data
             if (iteration % trainingInterval == 0) {
-                train(inputs, labels, this.modelNumber, numIterations);
+                train(inputs, labels, this.modelNumber, batchSize);
             }
         }
         FileWriter fileWriter = new FileWriter(fileName);
@@ -273,7 +273,7 @@ public class NeuralNetworkPlayer {
         System.out.println("Model " + this.modelNumber + " has now done " + iterations + " iterations.");
     }
 
-    public void trainSelfPlayWithExploration(int numIterations, int trainingInterval, char startSymbol) throws IOException {
+    public void trainSelfPlayWithExploration(int numIterations, int trainingInterval, char startSymbol, int batchSize) throws IOException {
         int moveIndex = (int) (Math.random() * 9);
         int iterations = 0;
         int moves = 0;
@@ -401,7 +401,7 @@ public class NeuralNetworkPlayer {
 
             // Train the model with the collected data
             if (iteration % trainingInterval == 0) {
-                train(inputs, labels, this.modelNumber, numIterations);
+                train(inputs, labels, this.modelNumber, batchSize);
             }
         }
         FileWriter fileWriter = new FileWriter(fileName);

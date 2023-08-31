@@ -16,6 +16,8 @@ public class App
         // and the number of training iterations. Use techniques like grid search or random search
         // to find the best combination of hyperparameters for your specific problem.
 
+        // Samt at give ties plus reward i stedet for negative reward
+
         AiPlayer aiPlayer0 = new AiPlayer(0); // 84% win rate - Iterations: 500.000, Training interval: 1000, started - 2 hidden layers - See ConfigPictures/Model0 for configuration
         // aiPlayer0 er også bedre end random når den ikke starter
 
@@ -30,21 +32,20 @@ public class App
         AiPlayer aiPlayer9 = new AiPlayer(9); //
 
         // Kør den her og se om det gør modellen bedre
-        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
-
-        /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlay(100000, 100, 'X');
-        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlay(100000, 1000, 'X');
-        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlay(250000, 100, 'X');
-        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlay(250000, 1000, 'X');
-        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlay(500000, 100, 'X');
-        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlay(500000, 1000, 'X');
-        aiPlayer7.getNeuralNetworkPlayer().trainSelfPlay(1000000, 100, 'X');
-        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlay(1000000, 1000, 'X');*/
+        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 32);
+        aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 86);
+        aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 100);
+        aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 125);
+        aiPlayer5.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 150);
+        aiPlayer6.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 200);
+        aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 250);
+        aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 500);
+        aiPlayer9.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 1000);
 
         int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
-            board.startAiPlayRandomNonVisualised(aiPlayer0, 0.01, true);
+            board.startAiPlayRandomNonVisualised(aiPlayer1, 0.01, true);
             //board.startOnlyAiGame(aiPlayer1, aiPlayer2, 0.1);
         }
         board.showWins(numGames);
@@ -52,57 +53,64 @@ public class App
         Board board1 = new Board();
         for (int i = 0; i < numGames; i++) {
             board1.clearBoard();
-            board1.startAiPlayRandomNonVisualised(aiPlayer0, 0.001, true);
+            board1.startAiPlayRandomNonVisualised(aiPlayer2, 0.01, true);
         }
         board1.showWins(numGames);
 
         Board board2 = new Board();
         for (int i = 0; i < numGames; i++) {
             board2.clearBoard();
-            board2.startAiPlayRandomNonVisualised(aiPlayer0, 0.01, false);
+            board2.startAiPlayRandomNonVisualised(aiPlayer3, 0.01, true);
         }
         board2.showWins(numGames);
 
         Board board3 = new Board();
         for (int i = 0; i < numGames; i++) {
             board3.clearBoard();
-            board3.startAiPlayRandomNonVisualised(aiPlayer0, 0.001, false);
+            board3.startAiPlayRandomNonVisualised(aiPlayer4, 0.01, true);
         }
         board3.showWins(numGames);
 
-        /*Board board4 = new Board();
+        Board board4 = new Board();
         for (int i = 0; i < numGames; i++) {
             board4.clearBoard();
-            board4.startAiPlayAiNonVisualised(aiPlayer5, 0.01);
+            board4.startAiPlayRandomNonVisualised(aiPlayer5, 0.01, true);
         }
         board4.showWins(numGames);
 
         Board board5 = new Board();
         for (int i = 0; i < numGames; i++) {
             board5.clearBoard();
-            board5.startAiPlayAiNonVisualised(aiPlayer6, 0.01);
+            board5.startAiPlayRandomNonVisualised(aiPlayer6, 0.01, true);
         }
         board5.showWins(numGames);
 
         Board board6 = new Board();
         for (int i = 0; i < numGames; i++) {
             board6.clearBoard();
-            board6.startAiPlayAiNonVisualised(aiPlayer7, 0.01);
+            board6.startAiPlayRandomNonVisualised(aiPlayer7, 0.01, true);
         }
         board6.showWins(numGames);
 
         Board board7 = new Board();
         for (int i = 0; i < numGames; i++) {
             board7.clearBoard();
-            board7.startAiPlayAiNonVisualised(aiPlayer8, 0.01);
+            board7.startAiPlayRandomNonVisualised(aiPlayer8, 0.01, true);
         }
         board7.showWins(numGames);
 
         Board board8 = new Board();
         for (int i = 0; i < numGames; i++) {
             board8.clearBoard();
-            board8.startAiPlayAiNonVisualised(aiPlayer0, 0.01);
+            board8.startAiPlayRandomNonVisualised(aiPlayer9, 0.01, true);
         }
-        board8.showWins(numGames);*/
+        board8.showWins(numGames);
+
+        Board board9 = new Board();
+        for (int i = 0; i < numGames; i++) {
+            board9.clearBoard();
+            board9.startAiPlayRandomNonVisualised(aiPlayer0, 0.01, true);
+        }
+        board9.showWins(numGames);
     }
 }
