@@ -44,7 +44,7 @@ public class Board {
         System.out.println();
     }
 
-    public void startGame() {
+    public void startPlayerVsPlayer() {
         boolean gameOver = false;
         System.out.println("Welcome to Tic Tac Toe!");
         System.out.println("Here's the current board:");
@@ -83,7 +83,7 @@ public class Board {
         displayBoard();
     }
 
-    public void startOnlyAiGame(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
+    public void startAiPlayAiVisualised(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
         while(true) {
             displayBoard();
             System.out.println();
@@ -116,8 +116,7 @@ public class Board {
         displayBoard();
     }
 
-    public void startOnlyAiGameWithoutDisplaying(AiPlayer aiPlayerX, double epsilon) {
-        int moveIndex = (int) (Math.random() * 9);
+    public void startAiPlayAiNonVisualised(AiPlayer aiPlayerX, AiPlayer aiPlayerO, double epsilon) {
         while(true) {
             aiPlayerX.makeMove(this, 'X', epsilon);
             if (checkWin('X')) {
@@ -128,10 +127,7 @@ public class Board {
                 break;
             }
 
-            while (!isValidMove(board, moveIndex / 3, moveIndex % 3)) {
-                moveIndex = (int) (Math.random() * 9);
-            }
-            board[moveIndex / 3][moveIndex % 3] = 'O';
+            aiPlayerO.makeMove(this, 'O', epsilon);
             if (checkWin('O')) {
                 oWins++;
                 break;
@@ -142,7 +138,52 @@ public class Board {
         }
     }
 
-    public void startPlayAgainstAiPlayerStart(AiPlayer aiPlayer, double epsilon) {
+    public void startAiPlayRandomNonVisualised(AiPlayer aiPlayerX, double epsilon, boolean aiPlayerStarts) {
+        if (aiPlayerStarts) {
+            while (true) {
+                aiPlayerX.makeMove(this, 'X', epsilon);
+                if (checkWin('X')) {
+                    xWins++;
+                    break;
+                } else if (checkTie()) {
+                    ties++;
+                    break;
+                }
+
+                makeRandomMove('O');
+                if (checkWin('O')) {
+                    oWins++;
+                    break;
+                } else if (checkTie()) {
+                    ties++;
+                    break;
+                }
+            }
+        } else {
+            while (true) {
+                makeRandomMove('X');
+                if (checkWin('X')) {
+                    xWins++;
+                    break;
+                } else if (checkTie()) {
+                    ties++;
+                    break;
+                }
+
+                aiPlayerX.makeMove(this, 'O', epsilon);
+                if (checkWin('O')) {
+                    oWins++;
+                    break;
+                } else if (checkTie()) {
+                    ties++;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    public void StartAiVsPlayer(AiPlayer aiPlayer, double epsilon) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Tic Tac Toe!");
@@ -190,7 +231,7 @@ public class Board {
         displayBoard();
     }
 
-    public void startPlayAgainstAiAiStart(AiPlayer aiPlayer, double epsilon) {
+    public void StartPlayerVsAi(AiPlayer aiPlayer, double epsilon) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to Tic Tac Toe!");
@@ -236,6 +277,14 @@ public class Board {
 
         scanner.close();
         displayBoard();
+    }
+
+    public void makeRandomMove(char player) {
+        int moveIndex = (int) (Math.random() * 9);
+        while (!isValidMove(this.getBoard(), moveIndex / 3, moveIndex % 3)) {
+            moveIndex = (int) (Math.random() * 9);
+        }
+        this.board[moveIndex / 3][moveIndex % 3] = player;
     }
 
     public boolean checkWin(char player) {
