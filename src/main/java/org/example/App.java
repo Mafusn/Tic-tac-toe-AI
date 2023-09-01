@@ -17,6 +17,8 @@ public class App
         // and the number of training iterations. Use techniques like grid search or random search
         // to find the best combination of hyperparameters for your specific problem.
 
+        // Prøv det vi gør med tiereward bare som negativ også.
+
         AiPlayer aiPlayer0 = new AiPlayer(0); // 84% win rate - Iterations: 500.000, Training interval: 1000, started - 2 hidden layers - See ConfigPictures/Model0 for configuration
         // aiPlayer0 er også bedre end random når den ikke starter
 
