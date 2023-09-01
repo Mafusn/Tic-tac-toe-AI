@@ -388,14 +388,14 @@ public class NeuralNetworkPlayer {
                     reward += 0.1; // Increase reward for previous moves (punish 'O' moves)
                 }
             } else {
-                reward += tieReward;
+                reward -= tieReward;
 
                 // Assign rewards for all moves in forward order
                 for (int i = 0; i < moves; i++) {
                     moveIndex = movesArray[i]; // Get the move index from the array
                     labels.add(new double[NUM_OUTPUTS]); // Initialize with zeros
                     labels.get(i)[moveIndex] = reward;
-                    reward -= tieReward / 10; // Decrease reward for previous moves
+                    reward += tieReward / 10; // Decrease reward for previous moves
                 }
             }
 
