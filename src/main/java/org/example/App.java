@@ -11,13 +11,12 @@ public class App
         // Træningsinterval på 1000 er bedst
         // 64 Hidden nodes har virket bedst indtil videre
         // 64 batch size har givet bedste resultater
+        // TieReward gør ikke den store forskel
 
         // Prøv det her i morgen
         //Hyperparameter Tuning: Experiment with different hyperparameters such as learning rates, batch sizes,
         // and the number of training iterations. Use techniques like grid search or random search
         // to find the best combination of hyperparameters for your specific problem.
-
-        // Prøv det vi gør med tiereward bare som negativ også.
 
         AiPlayer aiPlayer0 = new AiPlayer(0); // 84% win rate - Iterations: 500.000, Training interval: 1000, started - 2 hidden layers - See ConfigPictures/Model0 for configuration
         // aiPlayer0 er også bedre end random når den ikke starter
@@ -33,8 +32,10 @@ public class App
         AiPlayer aiPlayer9 = new AiPlayer(9); //
         AiPlayer aiPlayer10 = new AiPlayer(10); //
 
-        // Kør den her og se om det gør modellen bedre
-        aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.1);
+        // board.startPlayerVsAi(aiPlayer0, 0.0001);
+        // board.startAiVsPlayer(aiPlayer0, 0.0001);
+
+        /*aiPlayer1.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.1);
         aiPlayer2.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.2);
         aiPlayer3.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.3);
         aiPlayer4.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.4);
@@ -43,10 +44,10 @@ public class App
         aiPlayer7.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.7);
         aiPlayer8.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.8);
         aiPlayer9.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 0.9);
-        aiPlayer10.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 1.0);
+        aiPlayer10.getNeuralNetworkPlayer().trainSelfPlayWithExploration(500000, 1000, 'X', 1.0);*/
 
 
-        int numGames= 10000;
+        /*int numGames= 10000;
         for (int i = 0; i < numGames; i++) {
             board.clearBoard();
             board.startAiPlayRandomNonVisualised(aiPlayer1, 0.01, true);
@@ -122,6 +123,6 @@ public class App
             board10.clearBoard();
             board10.startAiPlayRandomNonVisualised(aiPlayer0, 0.01, true);
         }
-        board10.showWins(numGames);
+        board10.showWins(numGames);*/
     }
 }
